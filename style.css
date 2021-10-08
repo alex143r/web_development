@@ -1,0 +1,8 @@
+.user {
+  display: grid;
+  grid-template-columns: 100fr 100fr 100fr 100fr;
+}
+
+body {
+  color: black;
+}
