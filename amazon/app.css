@@ -1,0 +1,121 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+:root {
+  --nav-height: 5rem;
+  --nav-primary-color: #131921;
+  --nav-secondary-color: #232f3e;
+}
+body {
+  background: white;
+  width: 100%;
+  height: calc(100vh - var(--nav-height)); /* 1rem = 16px */
+  overflow: hidden;
+  overflow-y: scroll;
+}
+nav {
+}
+.primary-nav {
+  display: grid;
+  grid-template-columns: 100fr 100fr 300fr 100fr 100fr 100fr 100fr;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  height: var(--nav-height);
+  color: white;
+  background: var(--nav-primary-color);
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 0 5rem;
+}
+.nav-icon {
+}
+.nav-arrow {
+  margin: 3px 0 0 5px;
+  border-style: solid;
+  border-width: 4px;
+  border-color: transparent;
+  border-top: 4px solid #606060;
+  border-top-color: #a7acb2;
+  border-bottom-width: 0;
+  width: 0;
+  height: 0;
+  font-size: 0;
+  line-height: 0;
+}
+.sign-in-modal {
+  display: block;
+  position: absolute;
+  top: -5px;
+  left: 522.517px;
+  width: 500px;
+  margin: -3px 0 0 -2px;
+  padding-bottom: 7px;
+  border-radius: 3px 3px 3px 3px;
+
+  overflow: visible !important;
+  background: #fff;
+  border: 1px solid #bbb;
+  padding: 14px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.13);
+  font-size: 13px;
+  font-family: inherit;
+  line-height: normal;
+}
+.modal-arrow {
+  border-style: solid;
+  border-width: 9px;
+  border-color: transparent;
+  border-top-width: 0;
+  border-bottom: 9px solid #ccc;
+  width: 0;
+  height: 0;
+  font-size: 0;
+  line-height: 0;
+  position: absolute;
+  top: -9px;
+}
+.secondary-nav {
+}
+input {
+  width: 100%;
+  height: 2.5rem;
+}
+div#main-container {
+  display: grid;
+  grid-template-columns: 100fr 300fr;
+  width: 100%;
+  height: calc(100vh - var(--nav-height));
+  margin-top: var(--nav-height);
+}
+div#main-container > section {
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.1);
+}
+div#main-container > main {
+  background: white;
+  padding: 1rem;
+}
+div#main-container > main > div.item {
+  display: grid;
+  grid-template-columns: 100fr 400fr;
+  gap: 1rem;
+  border-top: 3px solid rgba(0, 0, 0, 0.5);
+  padding-top: 1rem;
+}
+div#main-container > main > div.item img {
+  width: 15rem;
+}
+.sign-up-container {
+  width: 350px;
+  margin: 0 auto;
+  border: 1px #ddd solid;
+}
+.sign-up-form {
+  border-radius: 4px;
+  position: relative;
+  padding: 14px 18px;
+}
