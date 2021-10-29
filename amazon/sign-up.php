@@ -1,35 +1,39 @@
 <?php
-echo "karen";
-
+$_title = 'Acompany Sign Up';
+require_once('components/header.php');
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+<main class="sign-up-main">
+    <section class="sign-up-container">
+        <form onsubmit="return false" class="sign-up-form">
+            <h2>Create Account</h2>
+            <label>First name</label>
+            <input type="text" name="firstName" required>
+            <label>Last name</label>
+            <input type="text" name="lastName" required>
+            <label>Email</label>
+            <input type="text" name="email" required>
+            <label>Phone number</label>
+            <input id="noPhone" name="phoneNo" type="tel" maxlength="8" pattern="[0-9]{8}" required />
+            <label>Password</label>
+            <input type="text" name="password" required>
+            <button onclick="signUp()">Sign up</button>
+        </form>
+    </section>
+</main>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="app.css">
-    <title>Amazon Sign-Up</title>
-</head>
-
-<body>
-    <main class="sign-up-main">
-        <section class="sign-up-container">
-            <form class="sign-up-form">
-                <h2>Create Account</h2>
-                <label>Your name</label>
-                <input type="text" name="name" placeholder="name">
-                <label>Email</label>
-                <input type="text" name="email" placeholder="email">
-                <label>Password</label>
-                <input type="text" name="password" placeholder="password">
-            </form>
-        </section>
-    </main>
-
-</body>
-
-</html>
+<script>
+    async function signUp() {
+        const form = document.querySelector(".sign-up-form");
+        console.log(form)
+        let conn = await fetch("./apis/api-signup.php", {
+            method: "POST",
+            body: new FormData(form)
+        })
+        let response = await conn.text();
+        console.log(response)
+    }
+</script>
+<?php
+require_once('components/footer.php');
