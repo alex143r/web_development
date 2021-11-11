@@ -19,10 +19,18 @@ require_once('components/header.php');
     </div>
     <div>🏁</div>
     <div>
-      <p onclick="location.href='sign-up.php'">Sign in<span class="nav-icon nav-arrow" style="visibility: visible;"></span></p>
-      <div class="sign-in-modal">
-        <div class="modal-arrow"></div>
-      </div>
+      <?php if (isset($_SESSION['user_name'])) {
+      ?> <p onclick="location.href='login.php'">Hello, <?= $_SESSION['user_name']; ?>
+        <h3>Account & Lists</h3> <?php
+                                } else {
+                                  ?>
+        <p onclick="location.href='sign-up.php'">Sign up<?php
+                                                      } ?>
+          <span class="nav-icon nav-arrow" style="visibility: visible;"></span>
+        </p>
+        <div class="sign-in-modal" style="display:none">
+          <div class="modal-arrow"></div>
+        </div>
     </div>
     <div>Returns &amp; Order</div>
     <div>Cart</div>
@@ -32,7 +40,12 @@ require_once('components/header.php');
 
 <!-- start div left and right -->
 <div id="main-container">
-  <section>left panel</section>
+  <section><?php
+            if (isset($_SESSION['user_name'])) {
+              echo "Hi " . $_SESSION['user_name'];
+            } else {
+              echo "Left panel";
+            } ?> </section>
 
   <!-- items will appear -->
   <main>
