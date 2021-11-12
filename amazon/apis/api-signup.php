@@ -9,6 +9,8 @@
 //http_response_code(500);
 
 
+
+
 //validate first name
 if (!isset($_POST['firstName'])) {
     send400('name is required');
@@ -58,23 +60,40 @@ $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 $db = require_once(__DIR__ . '/../db.php');
 
 
+
 try {
     //insert data in the DB
-    $q = $db->prepare('INSERT INTO users VALUES(:user_id, :user_first_name, :user_last_name, :user_email, :user_password)');
+    $verification_key = bin2hex(random_bytes(16));
+
+    $q = $db->prepare('INSERT INTO users VALUES(:user_id, :user_first_name, :user_last_name, :user_email, :user_password, :verified, :verification_key)');
     $q->bindValue(":user_id", null); // The DB will give this automatically
     $q->bindValue(":user_first_name", $_POST['firstName']);
     $q->bindValue(":user_last_name", $_POST['lastName']);
     $q->bindValue(":user_email", $_POST['email']);
     $q->bindValue(":user_password", $password);
+    $q->bindValue(":verified", '0');
+    $q->bindValue(":verification_key", $verification_key);
     $q->execute();
     $user_id = $db->lastinsertid();
+    // SEND EMAIL
+    $_to_email = $_POST['email'];
+    $_message = "Thank you for signing up for acompany. 
+            <a href='http://localhost:8888/amazon/validate-user.php?key=$verification_key'>
+                Click here to verify your account
+            </a>
+            <br><br>
+            Thanks,
+            <br>
+            acompany";
 
+    require_once(__DIR__ . "/../private/send-email.php");
     //SUCCESS
     header('Content-Type: application/json');
     //echo '{"info":"user created", "user_id":"' . $user_id . '"}';
     $response = ["info" => "user created", "user_id" => $user_id];
     echo json_encode($response);
 } catch (Exception $ex) {
+    print_r($ex);
     http_response_code(500);
     echo 'System under maintenance';
     die();

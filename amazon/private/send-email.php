@@ -10,7 +10,7 @@ require(__DIR__ . '/../email/Exception.php');
 require(__DIR__ . '/../email/PHPMailer.php');
 require(__DIR__ . '/../email/SMTP.php');
 
-
+echo "x";
 // Load Composer's autoloader
 // require 'vendor/autoload.php';
 
@@ -34,8 +34,8 @@ try {
     $mail->isSMTP();                                            // Send using SMTP
     $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-    $mail->Username   = 'aot21kea@gmail.com';                     // SMTP username
-    $mail->Password   = 'phpmailer21';                               // SMTP password
+    $mail->Username   = 'aotkea21@gmail.com';                     // SMTP username
+    $mail->Password   = 'amazonmailer21';                               // SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
     //$mail->SMTPSecure = 'ssl';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
     //$mail->SMTPSecure = 'tls';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
@@ -43,7 +43,7 @@ try {
     //$mail->Port       = 465;                                    // TCP port to connect to
 
     //Recipients
-    $mail->setFrom('aot21kea@gmail.com', 'Acompany signup');
+    $mail->setFrom('aotkea21@gmail.com', 'acompany signup');
     $mail->addAddress($_to_email, 'Reee');     // Add a recipient
     // $mail->addAddress('ellen@example.com');               // Name is optional
     // $mail->addReplyTo('DUMMY_EMAIL_HERE_XXXXXXXXXXXXXXXXXX', 'Information');
@@ -56,7 +56,7 @@ try {
 
     // Content
     $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = 'Acompany sign up';
+    $mail->Subject = 'acompany sign up';
     $mail->Body    = $_message;
     // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 

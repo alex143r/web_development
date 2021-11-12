@@ -1,25 +1,20 @@
 <?php
-$_title = 'Acompany Sign Up';
+$_title = 'acompany forgot password';
 require_once('components/header.php');
 
 ?>
 
-<main class="log-in-main">
+<main class="forgot-password-main">
     <div class="form-logo-container">
         <a href="./index.php"><img src="./img/logo_black.svg"></a>
     </div>
-    <section class="log-in-container">
-        <form onsubmit="return false" class="log-in-form">
-            <h2>Login</h2>
+    <section class="forgot-password-container">
+        <form onsubmit="return false" class="forgot-password-form">
+            <h2>Reset password</h2>
             <label>Email</label>
             <input type="text" name="user_email" required>
-            <label>Password</label>
-            <input type="text" name="user_password" required>
-            <button class="log-in-button" onclick="logIn()">Log in</button>
+            <button class="forgot-password-button" onclick="logIn()">Reset password</button>
         </form>
-        <p>Forgot password? <a href="./forgot-password.php">Click here</a>.</p>
-
-        <p>Don't have an account? <a href="./sign-up.php">Create an account here</a>.</p>
     </section>
 </main>
 

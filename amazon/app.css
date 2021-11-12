@@ -22,7 +22,8 @@ body {
   overflow-y: scroll;
 }
 
-nav {}
+nav {
+}
 
 nav p {
   font-size: 12px;
@@ -52,7 +53,8 @@ nav h4 {
   padding: 0 5rem;
 }
 
-.nav-icon {}
+.nav-icon {
+}
 
 .nav-arrow {
   margin: 3px 0 0 5px;
@@ -68,12 +70,10 @@ nav h4 {
   line-height: 0;
 }
 
-
 .search-bar {
   display: Flex;
   height: 40px;
   border-radius: 4px;
-
 }
 
 .search-button {
@@ -91,7 +91,6 @@ nav h4 {
   display: block;
 }
 
-
 .language-switch {
   display: none;
   position: absolute;
@@ -100,13 +99,13 @@ nav h4 {
   padding: 14px;
 }
 
-.language-select {}
+.language-select {
+}
 
 .language-switch input,
 .language-switch p {
   margin-bottom: 7px;
   font-size: 13px;
-
 }
 
 .nav-account:hover .dropdown-modal {
@@ -131,7 +130,9 @@ nav h4 {
 }
 
 .sign-in-button,
-.sign-up-button {
+.sign-up-button,
+.log-in-button,
+.forgot-password-button {
   height: 33px;
   margin: 0 0 10px 0;
   width: 100%;
@@ -148,9 +149,9 @@ nav h4 {
   text-decoration: none;
   line-height: 30px;
   font-size: 13px;
-  background: linear-gradient(to bottom, #f8e3ad, #EEBA37);
-  background: -moz-linear-gradient(top, #f8e3ad, #EEBA37);
-  background: -webkit-linear-gradient(top, #f8e3ad, #EEBA37);
+  background: linear-gradient(to bottom, #f8e3ad, #eeba37);
+  background: -moz-linear-gradient(top, #f8e3ad, #eeba37);
+  background: -webkit-linear-gradient(top, #f8e3ad, #eeba37);
 }
 
 .login-content {
@@ -159,10 +160,10 @@ nav h4 {
 
 .your-lists {
   margin-right: 20px;
-
 }
 
-.sign-in-modal {}
+.sign-in-modal {
+}
 
 .modal-arrow {
   border-style: solid;
@@ -178,7 +179,8 @@ nav h4 {
   top: -9px;
 }
 
-.secondary-nav {}
+.secondary-nav {
+}
 
 .search-bar input {
   width: 100%;
@@ -193,17 +195,17 @@ div#main-container {
   margin-top: var(--nav-height);
 }
 
-div#main-container>section {
+div#main-container > section {
   padding: 1rem;
   background: rgba(0, 0, 0, 0.1);
 }
 
-div#main-container>main {
+div#main-container > main {
   background: white;
   padding: 1rem;
 }
 
-div#main-container>main>div.item {
+div#main-container > main > div.item {
   display: grid;
   grid-template-columns: 100fr 400fr;
   gap: 1rem;
@@ -211,11 +213,13 @@ div#main-container>main>div.item {
   padding-top: 1rem;
 }
 
-div#main-container>main>div.item img {
+div#main-container > main > div.item img {
   width: 15rem;
 }
 
-.sign-up-main {
+.sign-up-main,
+.log-in-main,
+.forgot-password-main {
   padding: 14px 18px;
 }
 
@@ -228,29 +232,39 @@ div#main-container>main>div.item img {
   width: 100%;
 }
 
-.sign-up-container {
+.sign-up-container,
+.log-in-container,
+.forgot-password-container {
   width: 350px;
   margin: 14px auto 0;
   border: 1px #ddd solid;
   padding: 14px 18px;
 }
 
-.sign-up-form {
+.sign-up-form,
+.log-in-form,
+.forgot-password-form {
   border-radius: 4px;
   position: relative;
 }
 
-.sign-up-form h2 {
+.sign-up-form h2,
+.log-in-form h2,
+.forgot-password-form h2 {
   margin-bottom: 14px;
 }
 
-.sign-up-form input {
+.sign-up-form input,
+.log-in-form input,
+.forgot-password-form input {
   width: 100%;
   height: 2.5rem;
   margin-bottom: 14px;
 }
 
-.sign-up-container p {
+.sign-up-container p,
+.log-in-container p,
+.forgot-password-container p {
   font-size: 13px;
   margin-top: 20px;
 }
