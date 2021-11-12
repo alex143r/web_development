@@ -5,6 +5,9 @@ require_once('components/header.php');
 ?>
 
 <main class="sign-up-main">
+    <div class="form-logo-container">
+        <a href="./index.php"><img src="./img/logo_black.svg"></a>
+    </div>
     <section class="sign-up-container">
         <form onsubmit="return false" class="sign-up-form">
             <h2>Create Account</h2>
@@ -18,15 +21,15 @@ require_once('components/header.php');
             <input id="noPhone" name="phoneNo" type="tel" maxlength="8" pattern="[0-9]{8}" required />
             <label>Password</label>
             <input type="text" name="password" required>
-            <button onclick="signUp()">Sign up</button>
+            <button class="sign-up-button" onclick="signUp()">Sign up</button>
         </form>
+        <p>Already have an account? <a href="./login.php">Sign in here</a>.</p>
     </section>
 </main>
 
 <script>
     async function signUp() {
         const form = document.querySelector(".sign-up-form");
-        console.log(form)
         let conn = await fetch("./apis/api-signup.php", {
             method: "POST",
             body: new FormData(form)

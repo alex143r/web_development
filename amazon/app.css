@@ -3,20 +3,40 @@
   margin: 0;
   box-sizing: border-box;
 }
+
 :root {
   --nav-height: 5rem;
   --nav-primary-color: #131921;
   --nav-secondary-color: #232f3e;
+  --modal-background-color: #fff;
+  font-family: "Amazon Ember", Arial, sans-serif;
+  --font-primary-color: #0f1111;
 }
+
 body {
   background: white;
   width: 100%;
-  height: calc(100vh - var(--nav-height)); /* 1rem = 16px */
+  height: calc(100vh - var(--nav-height));
+  /* 1rem = 16px */
   overflow: hidden;
   overflow-y: scroll;
 }
-nav {
+
+nav {}
+
+nav p {
+  font-size: 12px;
+  line-height: 14px;
+  height: 14px;
+  font-weight: 400;
 }
+
+nav h4 {
+  font-size: 14px;
+  line-height: 15px;
+  font-weight: 700;
+}
+
 .primary-nav {
   display: grid;
   grid-template-columns: 100fr 100fr 300fr 100fr 100fr 100fr 100fr;
@@ -31,8 +51,9 @@ nav {
   left: 0;
   padding: 0 5rem;
 }
-.nav-icon {
-}
+
+.nav-icon {}
+
 .nav-arrow {
   margin: 3px 0 0 5px;
   border-style: solid;
@@ -46,16 +67,58 @@ nav {
   font-size: 0;
   line-height: 0;
 }
-.sign-in-modal {
+
+
+.search-bar {
+  display: Flex;
+  height: 40px;
+  border-radius: 4px;
+
+}
+
+.search-button {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  background-color: #febd69;
+  border-radius: 0 4px 4px 0;
+  width: 45px;
+  height: 40px;
+  font-size: 1.2rem;
+}
+
+.language:hover .language-switch {
   display: block;
+}
+
+
+.language-switch {
+  display: none;
   position: absolute;
-  top: -5px;
-  left: 522.517px;
-  width: 500px;
+  background-color: var(--modal-background-color);
+  color: var(--font-primary-color);
+  padding: 14px;
+}
+
+.language-select {}
+
+.language-switch input,
+.language-switch p {
+  margin-bottom: 7px;
+  font-size: 13px;
+
+}
+
+.nav-account:hover .dropdown-modal {
+  display: block;
+}
+
+.dropdown-modal {
+  display: none;
+  position: absolute;
   margin: -3px 0 0 -2px;
   padding-bottom: 7px;
   border-radius: 3px 3px 3px 3px;
-
   overflow: visible !important;
   background: #fff;
   border: 1px solid #bbb;
@@ -64,7 +127,43 @@ nav {
   font-size: 13px;
   font-family: inherit;
   line-height: normal;
+  color: var(--font-primary-color);
 }
+
+.sign-in-button,
+.sign-up-button {
+  height: 33px;
+  margin: 0 0 10px 0;
+  width: 100%;
+  cursor: pointer;
+  outline: 0;
+  border: 1px solid;
+  border-color: #c89411 #b0820f #99710d;
+  border-radius: 3px 3px 3px 3px;
+  text-align: center;
+  line-height: 31px;
+  vertical-align: middle;
+  color: #111;
+  font-family: inherit;
+  text-decoration: none;
+  line-height: 30px;
+  font-size: 13px;
+  background: linear-gradient(to bottom, #f8e3ad, #EEBA37);
+  background: -moz-linear-gradient(top, #f8e3ad, #EEBA37);
+  background: -webkit-linear-gradient(top, #f8e3ad, #EEBA37);
+}
+
+.login-content {
+  display: flex;
+}
+
+.your-lists {
+  margin-right: 20px;
+
+}
+
+.sign-in-modal {}
+
 .modal-arrow {
   border-style: solid;
   border-width: 9px;
@@ -78,12 +177,14 @@ nav {
   position: absolute;
   top: -9px;
 }
-.secondary-nav {
-}
-input {
+
+.secondary-nav {}
+
+.search-bar input {
   width: 100%;
   height: 2.5rem;
 }
+
 div#main-container {
   display: grid;
   grid-template-columns: 100fr 300fr;
@@ -91,31 +192,65 @@ div#main-container {
   height: calc(100vh - var(--nav-height));
   margin-top: var(--nav-height);
 }
-div#main-container > section {
+
+div#main-container>section {
   padding: 1rem;
   background: rgba(0, 0, 0, 0.1);
 }
-div#main-container > main {
+
+div#main-container>main {
   background: white;
   padding: 1rem;
 }
-div#main-container > main > div.item {
+
+div#main-container>main>div.item {
   display: grid;
   grid-template-columns: 100fr 400fr;
   gap: 1rem;
   border-top: 3px solid rgba(0, 0, 0, 0.5);
   padding-top: 1rem;
 }
-div#main-container > main > div.item img {
+
+div#main-container>main>div.item img {
   width: 15rem;
 }
+
+.sign-up-main {
+  padding: 14px 18px;
+}
+
+.form-logo-container {
+  height: 40px;
+}
+
+.form-logo-container img {
+  height: 100%;
+  width: 100%;
+}
+
 .sign-up-container {
   width: 350px;
-  margin: 0 auto;
+  margin: 14px auto 0;
   border: 1px #ddd solid;
+  padding: 14px 18px;
 }
+
 .sign-up-form {
   border-radius: 4px;
   position: relative;
-  padding: 14px 18px;
+}
+
+.sign-up-form h2 {
+  margin-bottom: 14px;
+}
+
+.sign-up-form input {
+  width: 100%;
+  height: 2.5rem;
+  margin-bottom: 14px;
+}
+
+.sign-up-container p {
+  font-size: 13px;
+  margin-top: 20px;
 }
