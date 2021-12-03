@@ -22,8 +22,7 @@ body {
   overflow-y: scroll;
 }
 
-nav {
-}
+nav {}
 
 nav p {
   font-size: 12px;
@@ -53,8 +52,11 @@ nav h4 {
   padding: 0 5rem;
 }
 
-.nav-icon {
+.primary-nav>div {
+  cursor: pointer;
 }
+
+.nav-icon {}
 
 .nav-arrow {
   margin: 3px 0 0 5px;
@@ -99,8 +101,7 @@ nav h4 {
   padding: 14px;
 }
 
-.language-select {
-}
+.language-select {}
 
 .language-switch input,
 .language-switch p {
@@ -162,8 +163,7 @@ nav h4 {
   margin-right: 20px;
 }
 
-.sign-in-modal {
-}
+.sign-in-modal {}
 
 .modal-arrow {
   border-style: solid;
@@ -179,8 +179,7 @@ nav h4 {
   top: -9px;
 }
 
-.secondary-nav {
-}
+.secondary-nav {}
 
 .search-bar input {
   width: 100%;
@@ -195,17 +194,17 @@ div#main-container {
   margin-top: var(--nav-height);
 }
 
-div#main-container > section {
+div#main-container>section {
   padding: 1rem;
   background: rgba(0, 0, 0, 0.1);
 }
 
-div#main-container > main {
+div#main-container>main {
   background: white;
   padding: 1rem;
 }
 
-div#main-container > main > div.item {
+div#main-container>main>div.item {
   display: grid;
   grid-template-columns: 100fr 400fr;
   gap: 1rem;
@@ -213,7 +212,7 @@ div#main-container > main > div.item {
   padding-top: 1rem;
 }
 
-div#main-container > main > div.item img {
+div#main-container>main>div.item img {
   width: 15rem;
 }
 

@@ -1,6 +1,6 @@
 <?php
 $_title = 'Acompany Sign Up';
-require_once('components/header.php');
+require_once('components/form-header.php');
 
 ?>
 
@@ -31,9 +31,7 @@ require_once('components/header.php');
             body: new FormData(form)
         })
         let response = await conn.text();
-        if (conn.ok) {
-            location.href = "index.php";
-        }
+
         console.log(response)
     }
 </script>

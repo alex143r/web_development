@@ -1,5 +1,6 @@
 <?php
 //the user logs via a form passing email and password
+require_once(__DIR__ . '/../globals.php');
 
 if (!isset($_POST['user_email'])) {
     send400('email hella requried');
@@ -38,15 +39,24 @@ try {
     // Success
     session_start();
     $_SESSION['user_name'] = $row['user_first_name'];
-    //_res(200, ['info' => 'success login']);
+    _res(200, ['info' => 'success login']);
     //SUCCESS
     // header('Content-Type: application/json');
     // //echo '{"info":"user created", "user_id":"' . $user_id . '"}';
     // $response = ["info" => "user created", "user_id" => $user_id];
     // echo json_encode($response);
-    header("succ ess");
+    header("location:../index.php");
 } catch (Exception $ex) {
     http_response_code(500);
     echo 'System under maintenance';
+    die();
+}
+
+function send400($errorMessage)
+{
+    header('Content-Type: application/json');
+    http_response_code(400);
+    _res(500, ['info' => 'system under maintainance', 'error' => __LINE__]);
+
     die();
 }

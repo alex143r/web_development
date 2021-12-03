@@ -1,6 +1,6 @@
 <?php
 $_title = 'acompany forgot password';
-require_once('components/header.php');
+require_once('components/form-header.php');
 
 ?>
 

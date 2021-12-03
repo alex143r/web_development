@@ -1,6 +1,6 @@
 <?php
 $_title = 'Acompany Sign Up';
-require_once('components/header.php');
+require_once('components/form-header.php');
 
 ?>
 
@@ -12,15 +12,15 @@ require_once('components/header.php');
         <form onsubmit="return false" class="sign-up-form">
             <h2>Create Account</h2>
             <label>First name</label>
-            <input type="text" name="firstName" required>
+            <input type="text" name="firstName" minlength="2" maxlength="50" tabindex="1" required>
             <label>Last name</label>
-            <input type="text" name="lastName" required>
+            <input type="text" name="lastName" minlength="2" maxlength="50" tabindex="2" required>
             <label>Email</label>
-            <input type="text" name="email" required>
+            <input type="text" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" tabindex="3" required>
             <label>Phone number</label>
-            <input id="noPhone" name="phoneNo" type="tel" maxlength="8" pattern="[0-9]{8}" required />
+            <input id="noPhone" name="phoneNo" type="tel" maxlength="8" pattern="[0-9]{8}" tabindex="4" required />
             <label>Password</label>
-            <input type="text" name="password" required>
+            <input type="password" minlength="5" maxlength="20" name="password" tabindex="5" required>
             <button class="sign-up-button" onclick="signUp()">Sign up</button>
         </form>
         <p>Already have an account? <a href="./login.php">Sign in here</a>.</p>

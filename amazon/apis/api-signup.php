@@ -13,45 +13,45 @@
 
 //validate first name
 if (!isset($_POST['firstName'])) {
-    send400('name is required');
+    send400('First name is required');
 }
 
 //count is used to get the number of elements in an array
 if (strlen($_POST['firstName']) < 2) {
-    send400('name must be atleast 2 characters');
+    send400('First name must be atleast 2 characters');
 }
-if (strlen($_POST['firstName']) > 20) {
-    send400('name must not be more than 20 characters');
+if (strlen($_POST['firstName']) > 50) {
+    send400('First name must not be more than 50 characters');
 }
 
 //validate last name
 if (!isset($_POST['lastName'])) {
-    send400('last name is requried');
+    send400('Last name is required');
 }
 if (strlen($_POST['lastName']) < 2) {
-    send400('last name must be atleast 2 characters');
+    send400('Last name must be atleast 2 characters');
 }
-if (strlen($_POST['lastName']) > 20) {
-    send400('last name must not be more than 20 characters');
+if (strlen($_POST['lastName']) > 50) {
+    send400('Last name must not be more than 50 characters');
 }
 
 //Validate email
 if (!isset($_POST['email'])) {
-    send400('email hella requried');
+    send400('Email is required');
 }
 if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-    send400('use valid email beeech');
+    send400('Invalid email');
 }
 
 //Validate user password
 if (!isset($_POST['password'])) {
-    send400('password required');
+    send400('Password required');
 }
 if (strlen($_POST['password']) < 5) {
-    send400('password must be atleast 5 char');
+    send400('Password must be atleast 5 characters');
 }
 if (strlen($_POST['password']) > 20) {
-    send400('password must not be more than 20 characters');
+    send400('Password must not be more than 20 characters');
 }
 $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
