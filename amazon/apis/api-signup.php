@@ -8,8 +8,7 @@
 //POST data
 //http_response_code(500);
 
-
-
+require_once(__DIR__ . '/../globals.php');
 
 //validate first name
 if (!isset($_POST['firstName'])) {
@@ -17,22 +16,22 @@ if (!isset($_POST['firstName'])) {
 }
 
 //count is used to get the number of elements in an array
-if (strlen($_POST['firstName']) < 2) {
-    send400('First name must be atleast 2 characters');
+if (strlen($_POST['firstName']) < _NAME_MIN_LEN) {
+    send400('First name must be atleast ' . _NAME_MIN_LEN . ' characters');
 }
-if (strlen($_POST['firstName']) > 50) {
-    send400('First name must not be more than 50 characters');
+if (strlen($_POST['firstName']) > _NAME_MAX_LEN) {
+    send400('First name must not be more than ' . _NAME_MAX_LEN . ' characters');
 }
 
 //validate last name
 if (!isset($_POST['lastName'])) {
     send400('Last name is required');
 }
-if (strlen($_POST['lastName']) < 2) {
-    send400('Last name must be atleast 2 characters');
+if (strlen($_POST['lastName']) < _NAME_MIN_LEN) {
+    send400('Last name must be atleast ' . _NAME_MIN_LEN . ' characters');
 }
-if (strlen($_POST['lastName']) > 50) {
-    send400('Last name must not be more than 50 characters');
+if (strlen($_POST['lastName']) >  _NAME_MAX_LEN) {
+    send400('Last name must not be more than ' . _NAME_MAX_LEN . ' characters');
 }
 
 //Validate email
@@ -47,11 +46,11 @@ if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
 if (!isset($_POST['password'])) {
     send400('Password required');
 }
-if (strlen($_POST['password']) < 5) {
-    send400('Password must be atleast 5 characters');
+if (strlen($_POST['password']) < _PASSWORD_MIN_LEN) {
+    send400('Password must be atleast ' . _PASSWORD_MIN_LEN . ' characters');
 }
-if (strlen($_POST['password']) > 20) {
-    send400('Password must not be more than 20 characters');
+if (strlen($_POST['password']) > _PASSWORD_MAX_LEN) {
+    send400('Password must not be more than ' . _PASSWORD_MAX_LEN . ' characters');
 }
 $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
@@ -78,7 +77,7 @@ try {
     // SEND EMAIL
     $_to_email = $_POST['email'];
     $_message = "Thank you for signing up for acompany. 
-            <a href='http://localhost:8888/amazon/validate-user.php?key=$verification_key'>
+            <a href='http://localhost/amazon/validate-user.php?key=$verification_key'>
                 Click here to verify your account
             </a>
             <br><br>

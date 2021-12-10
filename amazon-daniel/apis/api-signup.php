@@ -1,5 +1,7 @@
 <?php
 
+require_once('globals.php');
+
 // Validate name
 if( ! isset( $_POST['name'] ) ){ send_400('name is required'); }
 if( strlen( $_POST['name'] ) < 2 ){ send_400('name min 2 characters'); }
