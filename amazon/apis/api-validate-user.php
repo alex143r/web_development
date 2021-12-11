@@ -3,7 +3,7 @@ require_once(__DIR__ . '/../globals.php');
 
 // Verify the key, must be 32 char
 if (!isset($_GET['key'])) {
-    echo "not a key";
+    _res(400, ['info' => 'Suspicious', 'error' => __LINE__]);
     die();
 }
 

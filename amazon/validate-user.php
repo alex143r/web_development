@@ -1,50 +1,57 @@
 <?php
+
+session_start();
+if ($_SESSION['is_verified']) {
+    header('Location: index');
+}
 require_once(__DIR__ . '/globals.php');
+$_title = 'Acompany Sign Up';
+require_once('components/form-header.php');
 
-// Verify the key, must be 32 char
-if (!isset($_GET['key'])) {
-    echo "not a key";
-    die();
-}
+?>
+<section class="validate-email-container">
 
-if (strlen($_GET['key']) != 32) {
-    echo "incorrect key";
-    die();
-}
+    <article class="validate-email">
+        <div class="form-logo-container">
+            <a href="./index.php"><img src="./img/logo_black.svg"></a>
+        </div>
+        <p class="verify-email-info"></p>
+        <p class="validate-info-text">Verifying</p>
+    </article>
+</section>
 
+<script>
+    validateUser();
+    async function validateUser() {
+        const formData = new FormData();
+        const key = "<?= $_GET['key'] ?>";
+        const validateText = document.querySelector(".validate-info-text");
 
-// connect to the db
-$data = json_decode(file_get_contents("data.json"), true);
-//echo $json_data->verification_key;
-//echo $data['verification_key'];
+        if (!key || key.length != 32) {
+            validateText.innerHTML = "Suspicious";
+        }
+        formData.append('key', key);
 
-try {
-    $db = require_once(__DIR__ . '/db.php');
-} catch (Exception $ex) {
-    _res(500, ['info' => 'system under maintainance', 'error' => __LINE__]);
-}
+        try {
+            const request = await fetch('./apis/api-validate-user.php', {
+                method: "POST",
+                body: formData
+            });
+            const response = await request.json();
 
-// TODO: update the verified to 1 if there is a match
-// if ($_GET['key'] != $data['verification_key']) {
-//     echo 'keys dont match';
-//     echo $_GET['key'];
-//     die();
-// }
+            validateText.innerHTML = response.info;
 
-try {
-    // Insert data in the DB
-    $q = $db->prepare('UPDATE users SET verified = 1 WHERE verified = 0 AND verification_key = :verification_key');
-    $q->bindValue(":verification_key", $_GET['key']); // The db will give this automati.
-    $q->execute();
-    $user_id = $db->lastInsertId();
-    // SUCCESS
-    //header('Content-Type: application/json');
-    // echo '{"info":"user created", "user_id":"'.$user_id.'"}';
-    //$response = ["info" => "user created", "user_id" => intval($user_id)];
-    //echo json_encode($response);'
-    echo "success";
-} catch (Exception $ex) {
-    http_response_code(500);
-    echo 'System under maintainance';
-    exit();
-}
+            if (request.ok) {
+                infoElement.id = 'success';
+                setTimeout(() => {
+                    window.location.href = "login";
+                }, 5000);
+            }
+
+        } catch (error) {
+            console.error(error.message)
+        }
+    }
+</script>
+<?php
+require_once('components/footer.php');
