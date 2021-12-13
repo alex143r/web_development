@@ -1,13 +1,15 @@
 <?php
 // require_once('dictionary.php');
-$lan = $_GET['lan'] ?? 'en';
+//$lan = $_GET['lan'] ?? 'en';
 // $_title = $text[2][$lan];
-$_title = 'Acompany';
+$_title = 'acompany';
 require_once('components/header.php');
-$ip = $_SERVER['REMOTE_ADDR'];
-$details = json_decode(file_get_contents("http://ipinfo.io/{$ip}/json"));
-$country = $details->country;
-echo $country;
+// $ip = $_SERVER['REMOTE_ADDR'];
+// $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}/json"));
+// $country = $details->country;
+// echo $country;
+echo '<pre>' . print_r($_SESSION, TRUE) . '</pre>';
+
 ?>
 
 
@@ -15,8 +17,8 @@ echo $country;
 <!-- start div left and right -->
 <div id="main-container">
   <section><?php
-            if (isset($_SESSION['user_name'])) {
-              echo "Hi " . $_SESSION['user_name'];
+            if (isset($_SESSION['user_first_name'])) {
+              echo "Hi " . $_SESSION['user_first_name'];
             } else {
               echo "Left panel";
             } ?> </section>

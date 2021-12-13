@@ -11,6 +11,9 @@
   --modal-background-color: #fff;
   font-family: "Amazon Ember", Arial, sans-serif;
   --font-primary-color: #0f1111;
+  --error-red: red;
+  --success-green: rgb(5, 205, 5);
+  --button-border-radius: 3px;
 }
 
 body {
@@ -22,7 +25,8 @@ body {
   overflow-y: scroll;
 }
 
-nav {}
+nav {
+}
 
 nav p {
   font-size: 12px;
@@ -52,11 +56,12 @@ nav h4 {
   padding: 0 5rem;
 }
 
-.primary-nav>div {
+.primary-nav > div {
   cursor: pointer;
 }
 
-.nav-icon {}
+.nav-icon {
+}
 
 .nav-arrow {
   margin: 3px 0 0 5px;
@@ -101,7 +106,8 @@ nav h4 {
   padding: 14px;
 }
 
-.language-select {}
+.language-select {
+}
 
 .language-switch input,
 .language-switch p {
@@ -118,7 +124,7 @@ nav h4 {
   position: absolute;
   margin: -3px 0 0 -2px;
   padding-bottom: 7px;
-  border-radius: 3px 3px 3px 3px;
+  border-radius: var(--button-border-radius);
   overflow: visible !important;
   background: #fff;
   border: 1px solid #bbb;
@@ -133,7 +139,10 @@ nav h4 {
 .sign-in-button,
 .sign-up-button,
 .log-in-button,
-.forgot-password-button {
+.forgot-password-button,
+.update-profile-button,
+.update-profile-cancel,
+.edit-pass-btn {
   height: 33px;
   margin: 0 0 10px 0;
   width: 100%;
@@ -141,7 +150,7 @@ nav h4 {
   outline: 0;
   border: 1px solid;
   border-color: #c89411 #b0820f #99710d;
-  border-radius: 3px 3px 3px 3px;
+  border-radius: var(--button-border-radius);
   text-align: center;
   line-height: 31px;
   vertical-align: middle;
@@ -163,7 +172,8 @@ nav h4 {
   margin-right: 20px;
 }
 
-.sign-in-modal {}
+.sign-in-modal {
+}
 
 .modal-arrow {
   border-style: solid;
@@ -179,7 +189,8 @@ nav h4 {
   top: -9px;
 }
 
-.secondary-nav {}
+.secondary-nav {
+}
 
 .search-bar input {
   width: 100%;
@@ -194,17 +205,17 @@ div#main-container {
   margin-top: var(--nav-height);
 }
 
-div#main-container>section {
+div#main-container > section {
   padding: 1rem;
   background: rgba(0, 0, 0, 0.1);
 }
 
-div#main-container>main {
+div#main-container > main {
   background: white;
   padding: 1rem;
 }
 
-div#main-container>main>div.item {
+div#main-container > main > div.item {
   display: grid;
   grid-template-columns: 100fr 400fr;
   gap: 1rem;
@@ -212,7 +223,7 @@ div#main-container>main>div.item {
   padding-top: 1rem;
 }
 
-div#main-container>main>div.item img {
+div#main-container > main > div.item img {
   width: 15rem;
 }
 
@@ -233,7 +244,8 @@ div#main-container>main>div.item img {
 
 .sign-up-container,
 .log-in-container,
-.forgot-password-container {
+.forgot-password-container,
+.validate-email-container {
   width: 350px;
   margin: 14px auto 0;
   border: 1px #ddd solid;
@@ -255,7 +267,8 @@ div#main-container>main>div.item img {
 
 .sign-up-form input,
 .log-in-form input,
-.forgot-password-form input {
+.forgot-password-form input,
+.update-profile-form input {
   width: 100%;
   height: 2.5rem;
   margin-bottom: 14px;
@@ -263,7 +276,89 @@ div#main-container>main>div.item img {
 
 .sign-up-container p,
 .log-in-container p,
-.forgot-password-container p {
+.forgot-password-container p,
+.update-profile-form p {
   font-size: 13px;
   margin-top: 20px;
+}
+.sign-up-container .error-msg,
+.log-in-container .error-msg,
+.forgot-password-container .error-msg {
+  color: var(--error-red);
+  font-size: 13px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+.sign-up-success-msg,
+.update-profile-response {
+  color: var(--success-green);
+  font-size: 16px !important;
+}
+
+.validate-email-container .form-logo-container {
+  margin-bottom: 40px;
+}
+.validate-email-container {
+  height: 100%;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.validate-email-container p {
+  margin-bottom: 10px;
+}
+
+.profile-main {
+  margin-top: var(--nav-height);
+}
+
+.update-profile-con {
+  width: clamp(280px, 95%, 700px) !important;
+  margin: 0 auto 40px;
+}
+.update-profile-form,
+.update-profile-pass {
+  margin: 14px auto 0;
+  border: 1px #ddd solid;
+  padding: 14px 18px;
+}
+
+.update-profile-button,
+.update-profile-cancel {
+  width: 60px;
+  height: 33px;
+}
+.update-profile-cancel {
+  background: var(--error-red);
+  font-weight: bold;
+}
+
+.update-profile-form label {
+  font-weight: bold;
+}
+
+.update-profile-form input {
+  margin-top: 5px;
+}
+.update-profile-btn-con {
+  display: Flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+.button-disabled {
+  border: 1px solid #999999;
+  background: #cccccc;
+  color: #666666;
+  pointer-events: none;
+}
+.edit-pass-btn {
+  width: 60px;
+  background: linear-gradient(to bottom, #f7f8fa, #e7e9ec);
+  box-shadow: 0 1px 0 rgb(255 255 255);
+  border-color: #adb1b8 #a2a6ac #8d9096;
+}
+.edit-pass-btn:hover {
+  border-color: #a2a6ac #979aa1 #82858a;
+  background: linear-gradient(to bottom, #e7eaf0, #d9dce1);
 }

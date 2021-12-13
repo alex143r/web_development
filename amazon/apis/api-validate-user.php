@@ -2,59 +2,45 @@
 require_once(__DIR__ . '/../globals.php');
 
 // Verify the key, must be 32 char
-if (!isset($_GET['key'])) {
+if (!isset($_POST['key'])) {
     _res(400, ['info' => 'No key']);
     die();
 }
 
-if (strlen($_GET['key']) != 32) {
-    echo "incorrect key";
+if (strlen($_POST['key']) != 32) {
+    _res(400, ['info' => 'No key']);
     die();
 }
-
-
-// connect to the db
-$data = json_decode(file_get_contents("data.json"), true);
-//echo $json_data->verification_key;
-//echo $data['verification_key'];
 
 try {
     $db = require_once(__DIR__ . '/../db.php');
 } catch (Exception $ex) {
-    _res(500, ['info' => 'system under maintainance', 'error' => __LINE__]);
+    _res(500, ['info' => 'system under maintainance']);
 }
+// try {
+//     $query = $db->prepare('SELECT * FROM users WHERE user_verification_key = :user_verification_key');
+//     $query->bindValue(":user_verification_key", $_POST['key']);
+//     $query->execute();
+//     $row = $query->fetch();
 
-// TODO: update the verified to 1 if there is a match
-if ($_GET['key'] != $data['verification_key']) {
-    echo 'keys dont match';
-    echo $_GET['key'];
-    die();
-}
+//     if (!$row) {
+//         _res(400, ['info' => 'Verification key not found or invalid', 'error' => __LINE__]);
+//     }
+// } catch (Exception $ex) {
+//     _res(500, ['info' => 'system under maintainance', 'error' => __LINE__]);
+// }
 
 try {
     // Insert data in the DB
     $q = $db->prepare('UPDATE users SET verified = 1 WHERE verified = 0 AND verification_key = :verification_key');
-    $q->bindValue(":verification_key", $_GET['key']); // The db will give this automati.
+    $q->bindValue(":verification_key", $_POST['key']); // The db will give this automatically.
     $q->execute();
     $user_id = $db->lastInsertId();
     // SUCCESS
-    header('Content-Type: application/json');
-    // echo '{"info":"user created", "user_id":"'.$user_id.'"}';
-    //$response = ["info" => "user created", "user_id" => intval($user_id)];
-    //echo json_encode($response);'
-    echo "success";
+    session_start();
+    $_SESSION['is_verified'] = true;
+    _res(200, ['info' => 'Email verified successfully']);
 } catch (Exception $ex) {
-    http_response_code(500);
-    echo 'System under maintainance';
-    exit();
+    _res(500, ['info' => 'system under maintainance', 'error' => __LINE__]);
+    die();
 }
-
-
-//$data['verified'] = 1; //update fcommand
-
-//file_put_contents("data.json", json_encode($data, JSON_PRETTY_PRINT));
-/*
-UPDATE users SET verifed = 1 WHERE verified = 0 AND verified_key = :verified_key
-*/
-// TODO: Say congrats to user
-echo 'grats';

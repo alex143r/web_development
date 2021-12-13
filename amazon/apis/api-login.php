@@ -2,61 +2,50 @@
 //the user logs via a form passing email and password
 require_once(__DIR__ . '/../globals.php');
 
+//validate email
 if (!isset($_POST['user_email'])) {
-    send400('email hella requried');
+    _res(400, ['info' => 'Email required']);
+    die();
 }
 if (!filter_var($_POST['user_email'], FILTER_VALIDATE_EMAIL)) {
-    send400('use valid email beeech');
+    _res(400, ['info' => 'Email not valid']);
+    die();
+}
+//validate password 
+if (!isset($_POST['user_password'])) {
+    _res(400, ['info' => 'Password required']);
+    die();
 }
 
 $db = require_once(__DIR__ . '/../db.php');
 
-// pretend we connect to the database and get the password of a user based on the email
-// SELECT user_password FROM users WHERE user_email = :email
-//$hashed_password = '$2y$10$EE8EouFWiaSvM3FjfZ0Br.GdIsU5C8Pv3h/Onh9nNnlpIe.QOBIOO';
-
-// if (password_verify($password, $hashed_password)) {
-//     echo "nice";
-// } else {
-//     echo "wrong";
-// }
 
 try {
     $email = $_POST['user_email'];
     $password = $_POST['user_password'];
     $q = $db->prepare('SELECT * FROM users WHERE user_email = :user_email');
-    $q->bindValue(":user_email", $email); // The DB will give this automatically
-    //    $q->bindValue(":user_password", $hashed_password);
+    $q->bindValue(":user_email", $email);
     $q->execute();
     $row = $q->fetch();
     if (!$row) {
-        //_res(400, ['info' => 'wrong credentials', 'error' => __LINE__]);
-        echo "wat";
+        _res(400, ['info' => 'Email does not exist']);
+        die();
     }
     if (!password_verify($password, $row['user_password'])) {
+        _res(400, ['info' => "Password is incorrect"]);
         die();
     }
     // Success
     session_start();
-    $_SESSION['user_name'] = $row['user_first_name'];
-    _res(200, ['info' => 'success login']);
-    //SUCCESS
-    // header('Content-Type: application/json');
-    // //echo '{"info":"user created", "user_id":"' . $user_id . '"}';
-    // $response = ["info" => "user created", "user_id" => $user_id];
-    // echo json_encode($response);
-    header("location:../index.php");
+    $_SESSION['user_id'] = $row['user_id'];
+    $_SESSION['user_first_name'] = $row['user_first_name'];
+    $_SESSION['user_last_name'] = $row['user_last_name'];
+    $_SESSION['user_email'] = $row['user_email'];
+    $_SESSION['user_phone_number'] = $row['user_phone_number'];
+
+
+    _res(200, ['info' => 'Login success']);
 } catch (Exception $ex) {
-    http_response_code(500);
-    echo 'System under maintenance';
-    die();
-}
-
-function send400($errorMessage)
-{
-    header('Content-Type: application/json');
-    http_response_code(400);
-    _res(500, ['info' => 'system under maintainance', 'error' => __LINE__]);
-
+    _res(500, ['info' => 'System under maintenance']);
     die();
 }

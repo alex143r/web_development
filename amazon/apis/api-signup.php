@@ -12,45 +12,70 @@ require_once(__DIR__ . '/../globals.php');
 
 //validate first name
 if (!isset($_POST['firstName'])) {
-    send400('First name is required');
+    _res(400, ['info' => 'First name is required']);
+    die();
 }
 
 //count is used to get the number of elements in an array
 if (strlen($_POST['firstName']) < _NAME_MIN_LEN) {
-    send400('First name must be atleast ' . _NAME_MIN_LEN . ' characters');
+    _res(400, ['info' => 'First name must be atleast ' . _NAME_MIN_LEN . ' characters']);
+    die();
 }
 if (strlen($_POST['firstName']) > _NAME_MAX_LEN) {
-    send400('First name must not be more than ' . _NAME_MAX_LEN . ' characters');
+    _res(400, ['info' => 'First name must not be more than ' . _NAME_MAX_LEN . ' characters']);
+    die();
 }
 
 //validate last name
 if (!isset($_POST['lastName'])) {
-    send400('Last name is required');
+    _res(400, ['info' => 'Last name is required']);
+    die();
 }
 if (strlen($_POST['lastName']) < _NAME_MIN_LEN) {
-    send400('Last name must be atleast ' . _NAME_MIN_LEN . ' characters');
+    _res(400, ['info' => 'Last name must be atleast ' . _NAME_MIN_LEN . ' characters']);
+    die();
 }
 if (strlen($_POST['lastName']) >  _NAME_MAX_LEN) {
-    send400('Last name must not be more than ' . _NAME_MAX_LEN . ' characters');
+    _res(400, ['info' => 'Last name must not be more than ' . _NAME_MAX_LEN . ' characters']);
+    die();
 }
 
 //Validate email
 if (!isset($_POST['email'])) {
-    send400('Email is required');
+    _res(400, ['info' => 'Email is required']);
+    die();
 }
 if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-    send400('Invalid email');
+    _res(400, ['info' => 'Email is invalid']);
+    die();
+}
+
+//validate phone no
+if (!isset($_POST['phoneNo'])) {
+    _res(400, ['info' => 'Phone number is required']);
+    die();
+}
+if (strlen($_POST['phoneNo']) < _PHONE_LEN || strlen($_POST['phoneNo']) > _PHONE_LEN) {
+    _res(400, ['info' => 'Phone number must be ' . _PHONE_LEN . ' characters']);
+    die();
+}
+if (!ctype_digit($_POST['phoneNo'])) {
+    _res(400, ['info' => 'Phone number must contain only numbers']);
+    die();
 }
 
 //Validate user password
 if (!isset($_POST['password'])) {
-    send400('Password required');
+    _res(400, ['info' => 'Password required']);
+    die();
 }
 if (strlen($_POST['password']) < _PASSWORD_MIN_LEN) {
-    send400('Password must be atleast ' . _PASSWORD_MIN_LEN . ' characters');
+    _res(400, ['info' => 'Password must be atleast ' . _PASSWORD_MIN_LEN . ' characters']);
+    die();
 }
 if (strlen($_POST['password']) > _PASSWORD_MAX_LEN) {
-    send400('Password must not be more than ' . _PASSWORD_MAX_LEN . ' characters');
+    _res(400, ['info' => 'Password must not be more than ' . _PASSWORD_MAX_LEN . ' characters']);
+    die();
 }
 $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
@@ -58,17 +83,37 @@ $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 //include / require
 $db = require_once(__DIR__ . '/../db.php');
 
+// check if email or phone exists in db
+try {
+    $q = $db->prepare('SELECT * FROM users WHERE user_email = :user_email OR user_phone_number = :user_phone_number');
+    $q->bindValue('user_email', $_POST['email']);
+    $q->bindValue('user_phone_number', $_POST['phoneNo']);
+    $q->execute();
+    $row = $q->fetch();
+    if ($row['user_email'] === $_POST['email']) {
+        _res(400, ['info' => 'Email already exists']);
+        die();
+    }
+
+    if ($row['user_phone_number'] === $_POST['phoneNo']) {
+        _res(400, ['info' => 'Phone number already exists']);
+        die();
+    }
+} catch (Exception $ex) {
+    _res(500, ['info' => 'system under maintainance']);
+}
 
 
 try {
     //insert data in the DB
     $verification_key = bin2hex(random_bytes(16));
 
-    $q = $db->prepare('INSERT INTO users VALUES(:user_id, :user_first_name, :user_last_name, :user_email, :user_password, :verified, :verification_key)');
+    $q = $db->prepare('INSERT INTO users VALUES(:user_id, :user_first_name, :user_last_name, :user_email, :user_phone_number, :user_password, :verified, :verification_key)');
     $q->bindValue(":user_id", null); // The DB will give this automatically
     $q->bindValue(":user_first_name", $_POST['firstName']);
     $q->bindValue(":user_last_name", $_POST['lastName']);
     $q->bindValue(":user_email", $_POST['email']);
+    $q->bindValue(":user_phone_number", $_POST['phoneNo']);
     $q->bindValue(":user_password", $password);
     $q->bindValue(":verified", '0');
     $q->bindValue(":verification_key", $verification_key);
@@ -77,7 +122,7 @@ try {
     // SEND EMAIL
     $_to_email = $_POST['email'];
     $_message = "Thank you for signing up for acompany. 
-            <a href='http://localhost/amazon/validate-user.php?key=$verification_key'>
+            <a href='http://localhost:8888/amazon/validate-user.php?key=$verification_key'>
                 Click here to verify your account
             </a>
             <br><br>
@@ -86,24 +131,8 @@ try {
             acompany";
 
     require_once(__DIR__ . "/../private/send-email.php");
-    //SUCCESS
-    header('Content-Type: application/json');
-    //echo '{"info":"user created", "user_id":"' . $user_id . '"}';
-    $response = ["info" => "user created", "user_id" => $user_id];
-    echo json_encode($response);
+    _res(200, ['info' => 'Signed up successfully', "user_id" => $user_id]);
 } catch (Exception $ex) {
-    print_r($ex);
-    http_response_code(500);
-    echo 'System under maintenance';
-    die();
-}
-
-//function to manage responding in case of error
-function send400($errorMessage)
-{
-    header('Content-Type: application/json');
-    http_response_code(400);
-    $response = ["info" => $errorMessage];
-    echo json_encode($response);
+    _res(500, ['info' => 'System under maintenance']);
     die();
 }

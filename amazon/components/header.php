@@ -14,20 +14,20 @@ session_start();
 
 <body>
     <p><?php
-        if (isset($_SESSION['user_name'])) {
-            echo $_SESSION['user_name'];
+        if (isset($_SESSION['user_first_name'])) {
+            echo $_SESSION['user_first_name'];
         }  ?></p>
 
     <nav>
         <div class="primary-nav">
-            <div id="slogan" href="index.php">
-                <a href="index.php">
+            <div id="slogan" href="index">
+                <a href="index">
                     <img src="img/logo.svg">
                 </a>
             </div>
             <div>
 
-                <p>deliver to <?= $_SESSION['user_name'] ?></p>
+                <p>deliver to <?= $_SESSION['user_first_name'] ?></p>
                 <h4> <?= $country ?? "Denmark" ?></h4>
             </div>
             <div class="search-bar">
@@ -49,32 +49,32 @@ session_start();
                 </div>
             </div>
             <div class="nav-account">
-                <?php if (isset($_SESSION['user_name'])) {
-                ?> <p onclick="location.href='login.php'">Hello, <?= $_SESSION['user_name']; ?>
+                <?php if (isset($_SESSION['user_first_name'])) {
+                ?> <p onclick="location.href='login'">Hello, <?= $_SESSION['user_first_name']; ?>
                     <?php
                 } else {
                     ?>
-                    <p onclick="location.href='sign-up.php'">Hello, Sign in<?php
-                                                                        } ?>
+                    <p onclick="location.href='sign-up'">Hello, Sign in<?php
+                                                                    } ?>
                     <h4>Account & Lists<span class="nav-icon nav-arrow" style="visibility: visible;"></span></h4>
                     </p>
-                    <?php if (isset($_SESSION['user_name'])) { ?>
+                    <?php if (isset($_SESSION['user_first_name'])) { ?>
                         <div class="dropdown-modal log-in-modal">
                             <div class="modal-arrow"></div>
                             <div class="login-content">
                                 <div class="your-lists">
                                     <h3>Your lists</h3>
-                                    <p><a href="/amazon/index.php">Create a list</a></p>
-                                    <p><a href="/amazon/index.php">Create a list</a></p>
-                                    <p><a href="/amazon/index.php">Create a list</a></p>
+                                    <p><a href="/amazon/index">Create a list</a></p>
+                                    <p><a href="/amazon/index">Create a list</a></p>
+                                    <p><a href="/amazon/index">Create a list</a></p>
 
                                 </div>
                                 <div class="your-account">
                                     <h3>Your account</h3>
-                                    <p><a href="/amazon/account.php">Account</a></p>
-                                    <p><a href="/amazon/index.php">Orders</a></p>
-                                    <p><a href="/amazon/index.php">Browsing history</a></p>
-                                    <p><a href="./bridges/logout.php">Sign out</a></p>
+                                    <p><a href="/amazon/profile">Account</a></p>
+                                    <p><a href="/amazon/index">Orders</a></p>
+                                    <p><a href="/amazon/index">Browsing history</a></p>
+                                    <p><a href="./bridges/logout">Sign out</a></p>
                                 </div>
                             </div>
                         </div>
@@ -82,8 +82,8 @@ session_start();
                         <div class="dropdown-modal">
                             <div class="modal-arrow"></div>
                             <div class="sign-in-modal">
-                                <a href="./login.php"><button class="sign-in-button">Sign in</button></a>
-                                <p>New customer? Create account <a href="./sign-up.php">here!</a></p>
+                                <a href="./login"><button class="sign-in-button">Sign in</button></a>
+                                <p>New customer? Create account <a href="./sign-up">here!</a></p>
 
                             </div>
                         </div>
