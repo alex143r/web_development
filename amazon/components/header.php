@@ -14,9 +14,7 @@ session_start();
 
 <body>
     <p><?php
-        if (isset($_SESSION['user_first_name'])) {
-            echo $_SESSION['user_first_name'];
-        }  ?></p>
+        print_r($_SESSION) ?></p>
 
     <nav>
         <div class="primary-nav">

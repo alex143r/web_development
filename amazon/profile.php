@@ -42,7 +42,8 @@ require_once('components/header.php');
         <div class="update-profile-pass">
             <label>Password:</label>
             <p>*********</p>
-            <button class="edit-pass-btn">Edit</button>
+            <a href="./update-password">
+                <button class="edit-pass-btn">Edit</button></a>
         </div>
     </section>
 </main>
@@ -83,7 +84,10 @@ require_once('components/header.php');
             });
             let response = await conn.json();
             successMsg.innerHTML = response.info;
-            resetForm();
+            setTimeout(() => {
+                window.location.href = "profile";
+            }, 2000);
+            set
         } catch (error) {
             console.error(error.message);
         }

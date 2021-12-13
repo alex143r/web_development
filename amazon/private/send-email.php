@@ -55,7 +55,7 @@ try {
 
     // Content
     $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = 'acompany sign up';
+    $mail->Subject = $_subject;
     $mail->Body    = $_message;
     // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 

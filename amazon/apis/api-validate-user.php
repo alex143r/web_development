@@ -8,7 +8,7 @@ if (!isset($_POST['key'])) {
 }
 
 if (strlen($_POST['key']) != 32) {
-    _res(400, ['info' => 'No key']);
+    _res(400, ['info' => 'Suspicious key']);
     die();
 }
 

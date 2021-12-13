@@ -39,17 +39,17 @@ require_once('components/form-header.php');
             method: "POST",
             body: formData
         });
-        const response = await conn.text();
+        const response = await conn.json();
 
 
-        validateText.innerHTML = response?.info;
+        validateText.innerHTML = response.info;
         console.log(response)
 
         if (conn.ok) {
             validateText.style.color = "#05CD05";
             redirectInfo.innerHTML = "Redirecting to login..."
             setTimeout(() => {
-                //window.location.href = "login";
+                window.location.href = "login";
             }, 4000);
         }
 

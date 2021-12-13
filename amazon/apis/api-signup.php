@@ -107,8 +107,10 @@ try {
 try {
     //insert data in the DB
     $verification_key = bin2hex(random_bytes(16));
+    $password_reset_key = bin2hex(random_bytes(16));
 
-    $q = $db->prepare('INSERT INTO users VALUES(:user_id, :user_first_name, :user_last_name, :user_email, :user_phone_number, :user_password, :verified, :verification_key)');
+
+    $q = $db->prepare('INSERT INTO users VALUES(:user_id, :user_first_name, :user_last_name, :user_email, :user_phone_number, :user_password, :verified, :verification_key, :password_reset_key)');
     $q->bindValue(":user_id", null); // The DB will give this automatically
     $q->bindValue(":user_first_name", $_POST['firstName']);
     $q->bindValue(":user_last_name", $_POST['lastName']);
@@ -117,10 +119,12 @@ try {
     $q->bindValue(":user_password", $password);
     $q->bindValue(":verified", '0');
     $q->bindValue(":verification_key", $verification_key);
+    $q->bindValue(":password_reset_key", $password_reset_key);
     $q->execute();
     $user_id = $db->lastinsertid();
     // SEND EMAIL
     $_to_email = $_POST['email'];
+    $_subject = "acompany sign up";
     $_message = "Thank you for signing up for acompany. 
             <a href='http://localhost:8888/amazon/validate-user.php?key=$verification_key'>
                 Click here to verify your account
