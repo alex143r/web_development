@@ -85,7 +85,7 @@ try {
     _res(200, ['info' => 'Successfully updated your profile information']);
 } catch (Exception $ex) {
     print_r($ex);
-    _res(500, ['info' => 'system under maintainance', 'error' => __LINE__]);
+    _res(500, ['info' => 'system under maintenance', 'error' => __LINE__]);
     $db->rollBack();
     die();
 }

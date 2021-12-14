@@ -87,7 +87,6 @@ require_once('components/header.php');
             setTimeout(() => {
                 window.location.href = "profile";
             }, 2000);
-            set
         } catch (error) {
             console.error(error.message);
         }

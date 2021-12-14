@@ -1,5 +1,5 @@
 <?php
-$data = file_get_contents('https://docs.google.com/spreadsheets/d/e/2PACX-1vT2Y1nhYMVyQ-4ie2bcYSy3OlGBCQFYMKkKMafHL1yg383PK5V-0IQXZEEas_hxWZ8mFKGPG_pQ3Fsp/pub?output=tsv');
+$data = file_get_contents('https://docs.google.com/spreadsheets/d/e/2PACX-1vTyFGq9xcKypt4Qy7XHkWHmPmBfW7_emvAu3SSCvLGnnpWqKyGFt4Vbn2x6Jl00F-RfSwJF6MO6AQtj/pub?output=tsv');
 // Break lines
 $lines = explode("\n", $data);
 $keys = explode("\t", $lines[0]);
@@ -14,6 +14,6 @@ for ($i = 1; $i < count($lines); $i++) {
     }
     array_push($out, $item);
 }
-file_put_contents("shop.txt", json_encode($out));
-header('Content-Type: application/json');
-echo json_encode($out);
+file_put_contents("shop.txt", json_encode($out, JSON_PRETTY_PRINT));
+// header('Content-Type: application/json');
+// echo json_encode($out);

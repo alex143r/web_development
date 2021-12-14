@@ -100,7 +100,7 @@ try {
         die();
     }
 } catch (Exception $ex) {
-    _res(500, ['info' => 'system under maintainance']);
+    _res(500, ['info' => 'system under maintenance']);
 }
 
 

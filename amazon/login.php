@@ -3,9 +3,9 @@ require_once('components/form-header.php');
 
 $_title = 'acompany Log in';
 
-// if (isset($_SESSION['user_first_name'])) {
-//     header('Location: index');
-// }
+if (isset($_SESSION['user_first_name'])) {
+    header('Location: index');
+}
 ?>
 
 <main class="log-in-main">

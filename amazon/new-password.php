@@ -5,7 +5,7 @@ if ($_SESSION['is_verified']) {
     header('Location: index');
 }
 require_once(__DIR__ . '/globals.php');
-$_title = 'Acompany Sign Up';
+$_title = 'acompany Sign Up';
 require_once('components/form-header.php');
 
 ?>

@@ -46,5 +46,5 @@ try {
     _res(200, ['info' => 'Email sent successfully']);
 } catch (Exception $ex) {
     print_r($ex);
-    _res(500, ['info' => 'system under maintainance']);
+    _res(500, ['info' => 'system under maintenance']);
 }

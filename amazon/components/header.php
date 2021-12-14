@@ -8,7 +8,7 @@ session_start();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $_title ?? 'Acompany' ?></title>
+    <title><?= $_title ?? 'acompany' ?></title>
     <link rel="stylesheet" href="app.css">
 </head>
 
@@ -25,8 +25,7 @@ session_start();
             </div>
             <div>
 
-                <p>deliver to <?= $_SESSION['user_first_name'] ?></p>
-                <h4> <?= $country ?? "Denmark" ?></h4>
+                <h4>deliver to <?= $_SESSION['user_first_name'] ?? "Denmark" ?></h4>
             </div>
             <div class="search-bar">
                 <div class="search-fill"></div>
@@ -60,18 +59,12 @@ session_start();
                         <div class="dropdown-modal log-in-modal">
                             <div class="modal-arrow"></div>
                             <div class="login-content">
-                                <div class="your-lists">
-                                    <h3>Your lists</h3>
-                                    <p><a href="/amazon/index">Create a list</a></p>
-                                    <p><a href="/amazon/index">Create a list</a></p>
-                                    <p><a href="/amazon/index">Create a list</a></p>
 
-                                </div>
                                 <div class="your-account">
                                     <h3>Your account</h3>
                                     <p><a href="/amazon/profile">Account</a></p>
-                                    <p><a href="/amazon/index">Orders</a></p>
-                                    <p><a href="/amazon/index">Browsing history</a></p>
+                                    <p><a href="/amazon/upload-item">Upload items</a></p>
+                                    <p><a href="/amazon/items">Your items</a></p>
                                     <p><a href="./bridges/logout">Sign out</a></p>
                                 </div>
                             </div>

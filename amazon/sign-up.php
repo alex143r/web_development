@@ -1,5 +1,5 @@
 <?php
-$_title = 'Acompany Sign Up';
+$_title = 'acompany Sign Up';
 require_once('components/form-header.php');
 if (isset($_SESSION['user_first_name'])) {
     header('Location: index');

@@ -43,7 +43,7 @@ try {
         die();
     }
 } catch (Exception $ex) {
-    _res(500, ['info' => 'system under maintainance']);
+    _res(500, ['info' => 'system under maintenance']);
     die();
 }
 
@@ -66,5 +66,5 @@ try {
     //success
     _res(200, ['info' => 'Password changed successfully']);
 } catch (Exception $ex) {
-    _res(500, ['info' => 'System under maintainance']);
+    _res(500, ['info' => 'System under maintenance']);
 }

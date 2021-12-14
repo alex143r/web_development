@@ -68,7 +68,7 @@ require_once('components/header.php');
                 method: "POST",
                 body: new FormData(passwordForm)
             });
-            let response = await conn.text();
+            let response = await conn.json();
             console.log(response)
             successMsg.innerHTML = response.info;
             // setTimeout(() => {
