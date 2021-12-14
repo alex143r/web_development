@@ -39,7 +39,7 @@ if (!isset($_SESSION['user_first_name'])) {
 
                 </div>
                 <p class="success-msg"></p>
-                <p class="msg-check-out-items hide">Go to your <a href="/items">items</a>.</p>
+                <p class="msg-check-out-items hide">Go to your <a href="/amazon/items">items</a>.</p>
 
 
             </form>

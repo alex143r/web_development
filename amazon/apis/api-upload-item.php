@@ -8,7 +8,8 @@ session_start();
 if (!isset($_SESSION['user_id'])) {
     _res(400, ['info' => 'User needs to be logged in']);
     die();
-} //validate item name
+}
+//validate item name
 if (!isset($_POST['itemName'])) {
     _res(400, ['info' => 'Item name is required']);
     die();
@@ -68,21 +69,26 @@ if (!in_array(pathinfo($_FILES['itemImg']['name'], PATHINFO_EXTENSION), _IMAGE_A
     die();
 }
 
-//move_uploaded_file($_FILES['itemImg']['tmp_name'], __DIR__ . '/../item_images/' . uniqid());
-
 $db = require_once(__DIR__ . '/../db.php');
 
-// try {
-//     $item_id = bin2hex(random_bytes(16));
-//     $q = $db->prepare('INSERT INTO items VALUES(:item_id, :item_name, :item_description)');
-//     $q->bindValue(':item_id', $item_id);
-//     $q->bindValue(':item_name', $_POST['item_name']);
-//     $q->execute();
-//     echo 'Item created with id ' . $item_id;
-_res(200, ['info' => 'Created item ' . $_POST['itemName']]);
+try {
+    $item_id = bin2hex(random_bytes(16));
+    $image_id = uniqid();
 
-// } catch (Exception $ex) {
-//     http_response_code(500);
-//     echo 'System under maintenance ' . __LINE__;
-//     die();
-// }
+    $q = $db->prepare('INSERT INTO items VALUES(:item_id, :item_name, :item_description, :item_price, :item_image, :user_id)');
+    $q->bindValue(':item_id', $item_id);
+    $q->bindValue(':item_name', $_POST['itemName']);
+    $q->bindValue(':item_description', $_POST['itemDesc']);
+    $q->bindValue(':item_price', $_POST['itemPrice']);
+    $q->bindValue(':item_image', $image_id);
+    $q->bindValue(':user_id', $_SESSION['user_id']);
+    $q->execute();
+
+    move_uploaded_file($_FILES['itemImg']['tmp_name'], __DIR__ . '/../item_images/' . $image_id);
+
+    _res(200, ['info' => 'Created item ' . $_POST['itemName']]);
+} catch (Exception $ex) {
+    _res(500, ['info' => 'System under maintenance']);
+
+    die();
+}
