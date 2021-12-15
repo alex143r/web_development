@@ -1,7 +1,6 @@
 <?php
 
 require_once(__DIR__ . '/../globals.php');
-session_start();
 
 //Validate user is logged in
 // if (!isset($_SESSION['user_id'])) {
@@ -14,9 +13,9 @@ session_start();
 $db = require_once(__DIR__ . '/../db.php');
 
 try {
-    $q = $db->prepare('SELECT * FROM items INNER JOIN users ON items.user_id = users.user_id WHERE items.user_id = :user_id AND users.user_id = :user_id');
-    //$q = $db->prepare('SELECT * FROM items');
-
+    // $q = $db->prepare('SELECT item_id, item_name, item_description, item_price, item_image FROM items INNER JOIN users ON items.user_id = users.user_id WHERE items.user_id = :user_id AND users.user_id = :user_id');
+    $user_id;
+    $q = $db->prepare('SELECT * FROM items WHERE user_id = :user_id');
     $q->bindValue(':user_id', $_POST['user_id']);
     $q->execute();
     $row = $q->fetchAll();

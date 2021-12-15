@@ -36,7 +36,6 @@ function file_get_contents_curl($url)
 }
 $items = json_decode(file_get_contents_curl($itemApi), true);
 
-//var_dump(json_decode(file_get_contents_curl($itemApi), true));
 
 
 ?>
@@ -54,6 +53,11 @@ $items = json_decode(file_get_contents_curl($itemApi), true);
                         <h4>{$item['item_name']}</h4>
                         <p>{$item['item_description']}</p>
                         <p>{$item['item_price']}</p>
+                    </div>
+                    <div class='edit-item-con'>
+                        <button class='edit-item-btn'>
+                            <a href='./edit-item?id={$item['item_id']}'>Edit</a>
+                        </button>
                     </div>
                 </div>";
         };
