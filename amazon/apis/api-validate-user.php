@@ -23,7 +23,11 @@ try {
     $q = $db->prepare('UPDATE users SET verified = 1 WHERE verified = 0 AND verification_key = :verification_key');
     $q->bindValue(":verification_key", $_POST['key']); // The db will give this automatically.
     $q->execute();
-    $user_id = $db->lastInsertId();
+    $row = $q->rowCount();
+    if (!$row) {
+        _res(400, ['info' => 'Incorrect key']);
+        die();
+    }
     // SUCCESS
     session_start();
     $_SESSION['is_verified'] = true;

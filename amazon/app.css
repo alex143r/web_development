@@ -379,3 +379,20 @@ div#main-container > main > div.item img {
   display: flex;
   flex-direction: column;
 }
+.main-container {
+  margin-top: var(--nav-height);
+}
+.your-items-con {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, auto));
+  gap: 50px;
+}
+.your-items-con .item {
+  /*grid-column: auto/span 4;*/
+}
+.item-img-con {
+  height: 300px;
+}
+.your-items-con .item img {
+  height: 100%;
+}

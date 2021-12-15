@@ -15,7 +15,7 @@ require_once(__DIR__ . '/tsv-parser.php');
 // echo $country;
 echo '<pre>' . print_r($_SESSION, TRUE) . '</pre>';
 
-$data = json_decode(file_get_contents("shop.txt"));
+$data = json_decode(file_get_contents(__DIR__ . "/apisshop.txt"));
 // foreach ($data as $item) {
 //   echo "
 //         <div class='item'>

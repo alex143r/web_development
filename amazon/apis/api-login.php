@@ -1,6 +1,7 @@
 <?php
 //the user logs via a form passing email and password
 require_once(__DIR__ . '/../globals.php');
+session_start();
 
 //validate email
 if (!isset($_POST['user_email'])) {
@@ -23,12 +24,12 @@ $db = require_once(__DIR__ . '/../db.php');
 try {
     $email = $_POST['user_email'];
     $password = $_POST['user_password'];
-    $q = $db->prepare('SELECT * FROM users WHERE user_email = :user_email');
+    $q = $db->prepare('SELECT * FROM users WHERE user_email = :user_email AND verified = 1');
     $q->bindValue(":user_email", $email);
     $q->execute();
     $row = $q->fetch();
     if (!$row) {
-        _res(400, ['info' => 'Email does not exist']);
+        _res(400, ['info' => 'Email is invalid']);
         die();
     }
     if (!password_verify($password, $row['user_password'])) {

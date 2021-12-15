@@ -14,7 +14,8 @@ session_start();
 
 <body>
     <p><?php
-        print_r($_SESSION) ?></p>
+        print_r($_SESSION);
+        ?></p>
 
     <nav>
         <div class="primary-nav">

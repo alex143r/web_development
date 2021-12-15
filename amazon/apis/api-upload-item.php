@@ -41,7 +41,7 @@ if (!isset($_POST['itemPrice'])) {
     _res(400, ['info' => 'Item price is required']);
     die();
 }
-if (!ctype_digit($_POST['itemPrice'])) {
+if (!is_numeric($_POST['itemPrice'])) {
     _res(400, ['info' => 'Item price must be a number']);
     die();
 }
@@ -88,7 +88,7 @@ try {
 
     _res(200, ['info' => 'Created item ' . $_POST['itemName']]);
 } catch (Exception $ex) {
-    _res(500, ['info' => 'System under maintenance']);
+    _res(500, ['info' => $ex]);
 
     die();
 }
