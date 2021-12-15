@@ -201,33 +201,9 @@ nav h4 {
 }
 
 div#main-container {
-  display: grid;
-  grid-template-columns: 100fr 300fr;
   width: 100%;
   height: calc(100vh - var(--nav-height));
   margin-top: var(--nav-height);
-}
-
-div#main-container > section {
-  padding: 1rem;
-  background: rgba(0, 0, 0, 0.1);
-}
-
-div#main-container > main {
-  background: white;
-  padding: 1rem;
-}
-
-div#main-container > main > div.item {
-  display: grid;
-  grid-template-columns: 100fr 400fr;
-  gap: 1rem;
-  border-top: 3px solid rgba(0, 0, 0, 0.5);
-  padding-top: 1rem;
-}
-
-div#main-container > main > div.item img {
-  width: 15rem;
 }
 
 .sign-up-main,
@@ -391,29 +367,38 @@ div#main-container > main > div.item img {
     margin: var(--nav-height) 20px 0;
   }
 }
-.your-items-con {
+.your-items-con,
+.frontpage-items-con {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, auto));
   gap: 50px;
+  padding-top: 20px;
 }
-.your-items-con .item {
-  /*grid-column: auto/span 4;*/
-}
+
 .item-img-con {
   display: flex;
   justify-content: center;
   height: 300px;
   overflow: hidden;
 }
-.your-items-con .item img {
+
+.your-items-con .item img,
+.frontpage-items-con .item img {
   height: 100%;
 }
-.item-img-con img {
+.item-img-con img,
+.frontpage-items-con img {
   height: 100%;
 }
 #item-image-con .hide {
   display: none;
 }
 .item-text-con {
-  margin-top: 20px;
+  margin-top: 10px;
+}
+.item-text-con p {
+  margin-bottom: 5px;
+}
+.item-text-con h4 {
+  margin-bottom: 10px;
 }

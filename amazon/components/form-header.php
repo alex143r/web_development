@@ -13,7 +13,3 @@ session_start();
 </head>
 
 <body>
-    <p><?php
-        if (isset($_SESSION['user_first_name'])) {
-            echo $_SESSION['user_first_name'];
-        }  ?></p>

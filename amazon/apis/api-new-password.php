@@ -1,5 +1,5 @@
 <?php
-include_once(__DIR__ . '/../globals.php');
+require_once(__DIR__ . '/../globals.php');
 
 //validate key
 if (!isset($_POST['key'])) {

@@ -13,9 +13,8 @@ require_once(__DIR__ . '/tsv-parser.php');
 // $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}/json"));
 // $country = $details->country;
 // echo $country;
-echo '<pre>' . print_r($_SESSION, TRUE) . '</pre>';
 
-$data = json_decode(file_get_contents(__DIR__ . "/apisshop.txt"));
+$data = json_decode(file_get_contents(__DIR__ . "/shop.txt"));
 // foreach ($data as $item) {
 //   echo "
 //         <div class='item'>
@@ -30,20 +29,24 @@ $data = json_decode(file_get_contents(__DIR__ . "/apisshop.txt"));
 
 
 <!-- start div left and right -->
-<div id="main-container">
+<div id="main-container" class="main-container">
 
   <!-- items will appear -->
-  <main>
+  <main class="frontpage-items-con">
     <!-- blue printing -->
     <?php
     foreach ($data as $item) {
-      echo "<div class='item'>
-                <img src='https://coderspage.com/2021-F-Web-Dev-Images/{$item->image}'>
-                <div>
-                  <h4>{$item->title_en}</h4>
-                  <p>{$item->desc_en}</p>
-                  <p class='price'>{$item->price_gb} Dkk</p></div>
-                </div>";
+      echo "
+      <div class='item'>
+          <div class='item-img-con'>
+            <img src='https://coderspage.com/2021-F-Web-Dev-Images/{$item->image}'>
+          </div>
+          <div class='item-text-con'>
+            <h4>{$item->title_en}</h4>
+            <p class='item-description'>{$item->desc_en}</p>
+            <p class='price'>{$item->price_en} Dkk</p>
+          </div>
+      </div>";
     };
     ?>
     <!-- 

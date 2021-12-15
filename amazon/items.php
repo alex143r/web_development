@@ -20,7 +20,6 @@ $itemApi = "http://localhost:8888/amazon/apis/api-items.php";
 function file_get_contents_curl($url)
 {
     $ch = curl_init();
-
     curl_setopt($ch, CURLOPT_AUTOREFERER, TRUE);
     curl_setopt($ch, CURLOPT_HEADER, 0);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -51,8 +50,8 @@ $items = json_decode(file_get_contents_curl($itemApi), true);
                     </div>
                     <div class='item-text-con'>
                         <h4>{$item['item_name']}</h4>
-                        <p>{$item['item_description']}</p>
-                        <p>{$item['item_price']}</p>
+                        <p class='item-description'>{$item['item_description']}</p>
+                        <p>{$item['item_price']} dkk</p>
                     </div>
                     <div class='edit-item-con'>
                             <a href='./edit-item?id={$item['item_id']}'>
@@ -66,7 +65,14 @@ $items = json_decode(file_get_contents_curl($itemApi), true);
 
 </section>
 <script>
+    document.querySelectorAll(".item-description").forEach((desc) => {
 
+        if (desc.innerHTML.length > 60) {
+            console.log("yo");
+            const shortenedDesc = desc.innerHTML.substring(0, 57) + '...';
+            desc.innerHTML = shortenedDesc;
+        }
+    })
 </script>
 
 <?php

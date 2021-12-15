@@ -13,9 +13,7 @@ session_start();
 </head>
 
 <body>
-    <p><?php
-        print_r($_SESSION);
-        ?></p>
+
 
     <nav>
         <div class="primary-nav">
