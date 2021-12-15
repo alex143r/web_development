@@ -47,11 +47,11 @@ if (!is_numeric($_POST['itemPrice'])) {
 }
 
 if ($_POST['itemPrice'] > _ITEM_MAX_PRICE) {
-    _res(400, ['info' => 'Item price must not be over ' . number_format(_ITEM_MAX_PRICE, 2, ',', '.') . ' dkk']);
+    _res(400, ['info' => 'Item price must not be over ' . number_format(_ITEM_MAX_PRICE, 2, ',', '.') . ' kr']);
     die();
 }
 if ($_POST['itemPrice'] < _ITEM_MIN_PRICE) {
-    _res(400, ['info' => 'Item price must atleast ' . number_format(_ITEM_MIN_PRICE, 2, ',', '.') . ' dkk']);
+    _res(400, ['info' => 'Item price must atleast ' . number_format(_ITEM_MIN_PRICE, 2, ',', '.') . ' kr']);
     die();
 }
 

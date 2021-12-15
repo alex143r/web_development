@@ -9,106 +9,117 @@ require_once(__DIR__ . '/globals.php');
 //require tsv parser so we create a new shop.txt file and get updated content
 require_once(__DIR__ . '/tsv-parser.php');
 
-// $ip = $_SERVER['REMOTE_ADDR'];
-// $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}/json"));
-// $country = $details->country;
-// echo $country;
+$partnerData = json_decode(file_get_contents(__DIR__ . "/shop.txt"));
 
-$data = json_decode(file_get_contents(__DIR__ . "/shop.txt"));
-// foreach ($data as $item) {
-//   echo "
-//         <div class='item'>
-//             <div>{$item->id}</div>
-//             <div>{$item->title}</div>
-//             <img src='https://coderspage.com/2021-F-Web-Dev-Images/{$item->image}'>
-//         </div>";
-// };
+$ourItemsApi = "http://localhost:8888/amazon/apis/api-items.php";
+function file_get_contents_curl($url)
+{
+  $ch = curl_init();
+  curl_setopt($ch, CURLOPT_AUTOREFERER, TRUE);
+  curl_setopt($ch, CURLOPT_HEADER, 0);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($ch, CURLOPT_URL, $url);
+  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+  curl_setopt($ch, CURLOPT_POST, true);
+  curl_setopt($ch, CURLOPT_POSTFIELDS, 'user_id=' . $_SESSION['user_id'] . '&method=post&access_token=xyz'); // define what you want to post
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  $data = curl_exec($ch);
+  curl_close($ch);
+
+  return $data;
+}
+$ourItems = json_decode(file_get_contents_curl($ourItemsApi), true);
+
 
 ?>
 
 
 
-<!-- start div left and right -->
-<div id="main-container" class="main-container">
+<div>
+  <main class="main-container">
+    <h2>Featured Partner Products</h2>
+    <section class="carousel frontpage-carousel carousel-slider center" data-indicators="true">
+      <div class="carousel-fixed-item center middle-indicator">
+        <div class="left">
+          <a href="previous" class="movePrevCarousel middle-indicator-text waves-effect waves-light content-indicator"><i class="material-icons left  middle-indicator-text">chevron_left</i></a>
+        </div>
 
-  <!-- items will appear -->
-  <main class="frontpage-items-con">
-    <!-- blue printing -->
-    <?php
-    foreach ($data as $item) {
-      echo "
-      <div class='item'>
-          <div class='item-img-con'>
+        <div class="right">
+          <a href="next" class=" moveNextCarousel middle-indicator-text waves-effect waves-light content-indicator"><i class="material-icons right middle-indicator-text">chevron_right</i></a>
+        </div>
+      </div>
+      <?php
+      foreach ($partnerData as $item) {
+        echo "
+      <a class='carousel-item' href=''>
+          <div class='caro-img-con'>
             <img src='https://coderspage.com/2021-F-Web-Dev-Images/{$item->image}'>
           </div>
-          <div class='item-text-con'>
-            <h4>{$item->title_en}</h4>
-            <p class='item-description'>{$item->desc_en}</p>
-            <p class='price'>{$item->price_en} Dkk</p>
+          <div class='caro-text-con'>
+            <h4 class='caro-title'>{$item->title_en}</h4>
+            <p class='caro-desc'>{$item->desc_en}</p>
+            <p class='caro-price'>{$item->price_en} Dkk</p>
           </div>
-      </div>";
-    };
-    ?>
-    <!-- 
-    <div class="item">
-      <img src="https://m.media-amazon.com/images/I/817DclokSqL._AC_UY436_QL65_.jpg" alt="" />
-      <div>
-        <div>CanaKit Raspberry Pi 4 8GB Starter Kit - 8GB RAM</div>
-        <div>⭐⭐⭐⭐⭐ 8256</div>
-        <div>$119</div>
-        <div>Ships to Denmark</div>
-        <div>More buying choices</div>
-        <div>$110.39 (6 used &amp; new offers)</div>
-      </div>
-    </div>
-    <div class="item">
-      <img src="https://m.media-amazon.com/images/I/817DclokSqL._AC_UY436_QL65_.jpg" alt="" />
-      <div>
-        <div>CanaKit Raspberry Pi 4 8GB Starter Kit - 8GB RAM</div>
-        <div>⭐⭐⭐⭐⭐ 8256</div>
-        <div>$119</div>
-        <div>Ships to Denmark</div>
-        <div>More buying choices</div>
-        <div>$110.39 (6 used &amp; new offers)</div>
-      </div>
-    </div>
-    <div class="item">
-      <img src="https://m.media-amazon.com/images/I/817DclokSqL._AC_UY436_QL65_.jpg" alt="" />
-      <div>
-        <div>CanaKit Raspberry Pi 4 8GB Starter Kit - 8GB RAM</div>
-        <div>⭐⭐⭐⭐⭐ 8256</div>
-        <div>$119</div>
-        <div>Ships to Denmark</div>
-        <div>More buying choices</div>
-        <div>$110.39 (6 used &amp; new offers)</div>
-      </div>
-    </div>
-    <div class="item">
-      <img src="https://m.media-amazon.com/images/I/817DclokSqL._AC_UY436_QL65_.jpg" alt="" />
-      <div>
-        <div>CanaKit Raspberry Pi 4 8GB Starter Kit - 8GB RAM</div>
-        <div>⭐⭐⭐⭐⭐ 8256</div>
-        <div>$119</div>
-        <div>Ships to Denmark</div>
-        <div>More buying choices</div>
-        <div>$110.39 (6 used &amp; new offers)</div>
-      </div>
-    </div>
-    <div class="item">
-      <img src="https://m.media-amazon.com/images/I/817DclokSqL._AC_UY436_QL65_.jpg" alt="" />
-      <div>
-        <div>CanaKit Raspberry Pi 4 8GB Starter Kit - 8GB RAM</div>
-        <div>⭐⭐⭐⭐⭐ 8256</div>
-        <div>$119</div>
-        <div>Ships to Denmark</div>
-        <div>More buying choices</div>
-        <div>$110.39 (6 used &amp; new offers)</div>
-      </div>
-    </div> -->
-  </main>
-</div>
-<!-- end div left and right -->
+      </a>";
+      };
+      ?>
 
-<script src="app.js"></script>
+
+    </section>
+  </main>
+  <section class="our-products">
+
+    <div>
+      <h2>Our Featured Products</h2>
+      <main class="your-items-con">
+        <?php
+
+        foreach ($ourItems as $item) {
+          echo "
+                <div class='item'>
+                    <div class='item-img-con'>
+                        <img src='./item_images/{$item['item_image']}'/>
+                    </div>
+                    <div class='item-text-con'>
+                        <h4 class='item-title'>{$item['item_name']}</h4>
+                        <p class='item-description'>{$item['item_description']}</p>
+                        <p class='item-price'>{$item['item_price']} kr</p>
+                    </div>
+                </div>";
+        };
+        ?>
+      </main>
+
+    </div>
+  </section>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+  const elem = document.querySelector(".carousel");
+  const options = {
+    padding: 75,
+    dist: 0,
+  };
+  instance = M.Carousel.init(elem, options);
+
+  document.querySelector('.moveNextCarousel').addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    instance.next();
+  });
+  document.querySelector('.movePrevCarousel').addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    instance.prev();
+  });
+
+  document.querySelectorAll(".caro-desc").forEach((desc) => {
+    if (desc.innerHTML.length > 110) {
+      const shortenedDesc = desc.innerHTML.substring(0, 107) + '...';
+      desc.innerHTML = shortenedDesc;
+    }
+  })
+</script>
 <?php
 require_once('components/footer.php');

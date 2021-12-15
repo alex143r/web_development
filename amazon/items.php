@@ -16,7 +16,7 @@ require_once(__DIR__ . '/globals.php');
 // json_encode($data);
 // echo $data;
 // echo $url;
-$itemApi = "http://localhost:8888/amazon/apis/api-items.php";
+$itemApi = "http://localhost:8888/amazon/apis/api-user-items.php";
 function file_get_contents_curl($url)
 {
     $ch = curl_init();
@@ -51,7 +51,7 @@ $items = json_decode(file_get_contents_curl($itemApi), true);
                     <div class='item-text-con'>
                         <h4>{$item['item_name']}</h4>
                         <p class='item-description'>{$item['item_description']}</p>
-                        <p>{$item['item_price']} dkk</p>
+                        <p>{$item['item_price']} kr</p>
                     </div>
                     <div class='edit-item-con'>
                             <a href='./edit-item?id={$item['item_id']}'>

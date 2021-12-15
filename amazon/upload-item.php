@@ -24,7 +24,7 @@ if (!isset($_SESSION['user_first_name'])) {
                     <p class="error-msg error-description"></p>
                 </div>
                 <div id="item-price-con">
-                    <label>Price of item in dkk</label>
+                    <label>Price of item in kr</label>
                     <input type="number" min="1" name="itemPrice" step=".01" placeholder=" ">
                     <p class="error-msg error-price"></p>
                 </div>
