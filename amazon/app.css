@@ -403,10 +403,17 @@ div#main-container > main > div.item img {
   display: flex;
   justify-content: center;
   height: 300px;
+  overflow: hidden;
 }
 .your-items-con .item img {
   height: 100%;
 }
 .item-img-con img {
   height: 100%;
+}
+#item-image-con .hide {
+  display: none;
+}
+.item-text-con {
+  margin-top: 20px;
 }

@@ -55,9 +55,9 @@ $items = json_decode(file_get_contents_curl($itemApi), true);
                         <p>{$item['item_price']}</p>
                     </div>
                     <div class='edit-item-con'>
-                        <button class='edit-item-btn'>
-                            <a href='./edit-item?id={$item['item_id']}'>Edit</a>
-                        </button>
+                            <a href='./edit-item?id={$item['item_id']}'>
+                                <button class='edit-item-btn edit-pass-btn'>Edit</button>
+                            </a>
                     </div>
                 </div>";
         };

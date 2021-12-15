@@ -75,6 +75,7 @@ try {
     if (!$row) {
         _res(500, ['info' => 'Profile not updated']);
         $db->rollBack();
+        die();
     }
 
     $db->commit();

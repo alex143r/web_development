@@ -46,8 +46,8 @@ try {
     $q = $db->prepare('UPDATE users set user_password = :user_password, verified = :verified, verification_key = :verification_key WHERE user_id = :user_id');
     $q->bindValue(':user_id', $_SESSION['user_id']);
     $q->bindValue(':user_password', $newHashedPassword);
-    $q->bindValue(':verified', 0);
-    $q->bindValue(':verification_key', $newVerificationKey);
+    // $q->bindValue(':verified', 0);
+    // $q->bindValue(':verification_key', $newVerificationKey);
     $q->execute();
     $row = $q->rowCount();
 
