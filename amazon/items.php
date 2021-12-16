@@ -67,9 +67,8 @@ $items = json_decode(file_get_contents_curl($itemApi), true);
 <script>
     document.querySelectorAll(".item-description").forEach((desc) => {
 
-        if (desc.innerHTML.length > 60) {
-            console.log("yo");
-            const shortenedDesc = desc.innerHTML.substring(0, 57) + '...';
+        if (desc.innerHTML.length > 100) {
+            const shortenedDesc = desc.innerHTML.substring(0, 97) + '...';
             desc.innerHTML = shortenedDesc;
         }
     })
