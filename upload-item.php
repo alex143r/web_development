@@ -1,60 +1,102 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+$_title = 'acompany';
+require_once('components/header.php');
+require_once(__DIR__ . '/globals.php');
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="upload-item.css">
-</head>
+// if no session/user isnt logged in, go to inddex
+if (!isset($_SESSION['user_first_name'])) {
+    header('Location: index');
+}
+?>
+<section>
+    <main class="account-main">
+        <section class="update-account-con">
+            <h2>Upload an item</h2>
+            <form onsubmit="return false" class="upload-item-form update-account-form">
+                <div id="item-name-con">
+                    <label>Item name</label>
+                    <input type="text" name="itemName">
+                    <p class="error-msg error-name"></p>
+                </div>
+                <div id="item-description-con">
+                    <label>Item description</label>
+                    <textarea type="textarea" name="itemDesc" place></textarea>
+                    <p class="error-msg error-description"></p>
+                </div>
+                <div id="item-price-con">
+                    <label>Price of item in kr</label>
+                    <input type="number" min="1" name="itemPrice" step=".01" placeholder=" ">
+                    <p class="error-msg error-price"></p>
+                </div>
+                <div id="item-image-con">
+                    <label>Upload an image of item</label>
+                    <input class="file-input" type="file" name="itemImg">
+                    <p class="error-msg error-img"></p>
+                </div>
+                <div class="update-account-btn-con">
+                    <button class="update-account-cancel button-disabled" onclick="resetForm()">Cancel</button>
+                    <button class="update-account-button button-disabled" onclick="uploadItem()">Upload</button>
 
-<body>
-
-    <form onsubmit="validate(upload_item); return false">
-        <input id="item_name" name="item_name" type="text" data-validate="str" data-min="2" data-max="20">
-        <button>Upload item</button>
-    </form>
-    <div class="items"></div>
-    <script src="validator.js"></script>
-    <script>
-        async function upload_item() {
-            const form = event.target;
-            const conn = await fetch('apis/api-upload-item', {
-                method: "POST",
-                body: new FormData(form)
-            })
-            const res = await conn.text();
-
-            const itemName = document.querySelector("#item_name").value;
-            const str = res;
-            const idFromStr = str.substring(str.indexOf("id ") + 3);
-
-            let divItem = `<div class="item">
-                             <p>${itemName}</p>
-                             <p>${idFromStr}</p>
-                             <div onclick="deleteItem()">🗑️</div>
-                             </div>`;
-            document.querySelector(".items").insertAdjacentHTML("afterbegin", divItem);
-
-        }
-
-        async function deleteItem() {
-            event.target.parentElement.remove();
-            const itemId = event.target.previousElementSibling.innerHTML;
-            const formData = new FormData();
-            formData.append("item_id", itemId);
+                </div>
+                <p class="success-msg"></p>
+                <p class="msg-check-out-items hide">Go to your <a href="/items">items</a>.</p>
 
 
-            const conn = await fetch('apis/api-delete-item', {
-                method: "POST",
-                body: formData
-            })
-            const res = await conn.text();
+            </form>
+        </section>
+        <script>
+            const itemForm = document.querySelector(".upload-item-form");
+            const updateBtn = document.querySelector(".update-account-button");
+            const cancelBtn = document.querySelector(".update-account-cancel");
+            const successMsg = document.querySelector(".success-msg");
 
-            console.log(res);
-        }
-    </script>
-</body>
+            itemForm.addEventListener("input", enableBtns);
 
-</html>
+            function enableBtns() {
+                updateBtn.classList.remove("button-disabled");
+                cancelBtn.classList.remove("button-disabled");
+                itemForm.removeEventListener("input", enableBtns)
+                successMsg.innerHTML = "";
+
+            };
+
+            function resetForm() {
+                document.querySelectorAll(`.upload-item-form input`).forEach((label) => {
+                    label.value = '';
+                });
+                document.querySelector(`.upload-item-form textarea`).value = "";
+                document.querySelectorAll(".error-msg").forEach((msg) => msg.innerHTML = '');
+
+                itemForm.addEventListener("input", enableBtns);
+
+            }
+
+            async function uploadItem() {
+                try {
+                    let conn = await fetch("./apis/api-upload-item.php", {
+                        method: "POST",
+                        body: new FormData(itemForm)
+                    });
+                    let response = await conn.json();
+                    console.log(response)
+
+                    if (!conn.ok) {
+                        document.querySelectorAll(".error-msg").forEach((msg) => msg.innerHTML = '');
+                        const errorField = response.info.split(' ')[1].toLowerCase();
+                        const errorInput = document.querySelector(`#item-${errorField}-con input`)
+                        const errorMsg = document.querySelector(`#item-${errorField}-con .error-msg`)
+                        errorMsg.innerHTML = response.info;
+                    }
+                    if (conn.ok) {
+                        document.querySelector(".success-msg").innerHTML = response.info;
+                        document.querySelector(".msg-check-out-items").classList.remove("hide");
+                        resetForm();
+                    }
+
+                } catch (error) {
+                    console.error(error.message);
+                }
+            }
+        </script>
+        <?php
+        require_once('components/footer.php');

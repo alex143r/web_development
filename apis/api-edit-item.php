@@ -3,8 +3,8 @@ require_once(__DIR__ . '/../globals.php');
 session_start();
 
 //Validate user is logged in
-if (!isset($_SESSION['user_id'])) {
-    _res(400, ['info' => 'User needs to be logged in']);
+if (!isset($_POST['itemId'])) {
+    _res(400, ['info' => 'No item selected']);
     die();
 }
 //validate item name
@@ -43,50 +43,62 @@ if (!is_numeric($_POST['itemPrice'])) {
     _res(400, ['info' => 'Item price must be a number']);
     die();
 }
+
 if ($_POST['itemPrice'] > _ITEM_MAX_PRICE) {
-    _res(400, ['info' => 'Item price must not be over' . number_format(_ITEM_MAX_PRICE, 2, ',', '.') . ' kr']);
-    die();
-}
-if ($_POST['itemPrice'] > _ITEM_MAX_PRICE) {
-    _res(400, ['info' => 'Item price must not be over' . number_format(_ITEM_MAX_PRICE, 2, ',', '.') . ' kr']);
+    _res(400, ['info' => 'Item price must not be over ' . number_format(_ITEM_MAX_PRICE, 2, ',', '.') . ' kr']);
     die();
 }
 if ($_POST['itemPrice'] < _ITEM_MIN_PRICE) {
-    _res(400, ['info' => 'Item price must atleast' . _ITEM_MIN_PRICE . ' kr']);
+    _res(400, ['info' => 'Item price must atleast ' . number_format(_ITEM_MIN_PRICE, 2, ',', '.') . ' kr']);
     die();
 }
 
 //validate item image
-if (!file_exists($_FILES['itemImg']['tmp_name'])) {
-    _res(400, ['info' => 'Item image is required']);
-    die();
-}
 
-if (!in_array(pathinfo($_FILES['itemImg']['name'], PATHINFO_EXTENSION), _IMAGE_ALLOWED_FILE)) {
-    _res(400, ['info' => 'Item image is not a valid filetype']);
-    die();
+
+if (file_exists($_FILES['itemImg']['tmp_name'])) {
+    if (!in_array(pathinfo($_FILES['itemImg']['name'], PATHINFO_EXTENSION), _IMAGE_ALLOWED_FILE)) {
+        _res(400, ['info' => 'Item image is not a valid filetype']);
+        die();
+    }
 }
 
 $db = require_once(__DIR__ . '/../db.php');
 
 try {
-    $item_id = bin2hex(random_bytes(16));
-    $image_id = uniqid();
+    if (file_exists($_FILES['itemImg']['tmp_name'])) {
 
-    $q = $db->prepare('INSERT INTO items VALUES(:item_id, :item_name, :item_description, :item_price, :item_image, :user_id)');
-    $q->bindValue(':item_id', $item_id);
+        $image_id = uniqid();
+    } else {
+        $image_id = $_POST['itemImg'];
+    }
+    $db->beginTransaction();
+    $q = $db->prepare('UPDATE items SET item_name = :item_name, item_description = :item_description, item_price = :item_price, item_image = :item_image WHERE item_id = :item_id');
+    $q->bindValue(':item_id', $_POST['itemId']);
     $q->bindValue(':item_name', $_POST['itemName']);
     $q->bindValue(':item_description', $_POST['itemDesc']);
     $q->bindValue(':item_price', $_POST['itemPrice']);
     $q->bindValue(':item_image', $image_id);
-    $q->bindValue(':user_id', $_SESSION['user_id']);
     $q->execute();
+    $row = $q->rowCount();
 
-    move_uploaded_file($_FILES['itemImg']['tmp_name'], __DIR__ . '/../item_images/' . $image_id);
+    if (!$row) {
+        _res(500, ['info' => $_POST['itemId']]);
+        $db->rollBack();
+        die();
+    }
 
-    _res(200, ['info' => 'Created item ' . $_POST['itemName']]);
+    if (file_exists($_FILES['itemImg']['tmp_name'])) {
+
+        move_uploaded_file($_FILES['itemImg']['tmp_name'], __DIR__ . '/../item_images/' . $image_id);
+    }
+
+    $db->commit();
+    _res(200, ['info' => 'Updated item: "' . $_POST['itemName'] . '"']);
 } catch (Exception $ex) {
     _res(500, ['info' => $ex]);
+    $db->rollBack();
+
 
     die();
 }

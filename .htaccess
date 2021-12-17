@@ -1,5 +1,3 @@
 RewriteEngine On
-
-# items/female/blue/1
-RewriteCond %{REQUEST_METHOD} GET
-RewriteRule ^items2/(.*)/(.*)/(.*)$ items2.php?gender=$1&color=$2&price=$3 [NC,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
