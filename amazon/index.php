@@ -1,8 +1,6 @@
 <?php
-// require_once('dictionary.php');
-//$lan = $_GET['lan'] ?? 'en';
-// $_title = $text[2][$lan];
-$_title = 'acompany';
+
+$_title = 'acompany frontpage';
 require_once('components/header.php');
 require_once(__DIR__ . '/globals.php');
 
@@ -58,7 +56,7 @@ $ourItems = json_decode(file_get_contents_curl($ourItemsApi), true);
           <div class='caro-text-con'>
             <h4 class='caro-title'>{$item->title_en}</h4>
             <p class='caro-desc'>{$item->desc_en}</p>
-            <p class='caro-price'>{$item->price_en} Dkk</p>
+            <p class='caro-price'>{$item->price_en} kr</p>
           </div>
       </a>";
       };

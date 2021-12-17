@@ -96,7 +96,7 @@
         "desc_dk": "En smuk halsk\u00e6de k\u00f8bt p\u00e5 wish og solgt videre",
         "desc_en": "A beautiful necklace bought on wish and resold",
         "price_dk": "",
-        "price_en": "",
+        "price_en": "60",
         "image": "dani407x-cb4817fc-42e9-4ddf-b4c4-aa6a60283ab4.jpg"
     }
 ]

@@ -6,7 +6,7 @@ require_once('components/form-header.php');
 
 <main class="forgot-password-main">
     <div class="form-logo-container">
-        <a href="./index.php"><img src="./img/logo_black.svg"></a>
+        <a href="./index"><img src="./img/logo_black.svg"></a>
     </div>
     <section class="forgot-password-container">
         <form onsubmit="return false" class="forgot-password-form">
@@ -23,22 +23,26 @@ require_once('components/form-header.php');
 
 <script>
     async function forgotPassword() {
-        const form = document.querySelector(".forgot-password-form");
-        let conn = await fetch("./apis/api-forgot-password.php", {
-            method: "POST",
-            body: new FormData(form)
-        })
-        let response = await conn.json();
-        if (conn.ok) {
-            document.querySelector(".success-msg").innerHTML = `${response.info}! Check your inbox.`;
+        try {
+            const form = document.querySelector(".forgot-password-form");
+            let conn = await fetch("./apis/api-forgot-password.php", {
+                method: "POST",
+                body: new FormData(form)
+            })
+            let response = await conn.json();
+            if (conn.ok) {
+                document.querySelector(".success-msg").innerHTML = `${response.info}! Check your inbox.`;
 
-            document.querySelector(".error-msg").innerHTML = '';
+                document.querySelector(".error-msg").innerHTML = '';
+            }
+            if (!conn.ok) {
+                document.querySelector(".error-msg").innerHTML = response.info;
+                document.querySelector(".success-msg").innerHTML = '';
+            }
+            console.log(response)
+        } catch (error) {
+            console.error(error);
         }
-        if (!conn.ok) {
-            document.querySelector(".error-msg").innerHTML = response.info;
-            document.querySelector(".success-msg").innerHTML = '';
-        }
-        console.log(response)
     }
 </script>
 <?php

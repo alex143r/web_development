@@ -2,8 +2,6 @@
 require_once(__DIR__ . '/../globals.php');
 session_start();
 
-// TODO: Make sure the user is logged in
-
 //Validate user is logged in
 if (!isset($_SESSION['user_id'])) {
     _res(400, ['info' => 'User needs to be logged in']);

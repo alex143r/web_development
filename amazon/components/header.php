@@ -10,8 +10,12 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $_title ?? 'acompany' ?></title>
     <link rel="stylesheet" href="./css/materialize.min.css">
+    <link rel="icon" type="image/svg+xml" href="./img/small-logo.svg">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <link rel="stylesheet" href="app.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js">
+    </script>
+
 </head>
 
 <body>
@@ -20,13 +24,13 @@ session_start();
     <nav>
         <div class="primary-nav">
             <div id="slogan" href="index">
-                <a href="index">
+                <a href="index" class="logo-con">
                     <img src="img/logo.svg">
                 </a>
             </div>
-            <div>
+            <div class="disabled">
 
-                <h4>deliver to <?= $_SESSION['user_first_name'] ?? "Denmark" ?></h4>
+                <p class="delivery">deliver to <?= $_SESSION['user_first_name'] ?? "Denmark" ?></p>
             </div>
             <div class="search-bar">
                 <div class="search-fill"></div>
@@ -35,8 +39,9 @@ session_start();
             </div>
             <div class="language">
                 <span class="flag">
-                    <?= $lan === 'dk' ? "🇩🇰" : '🇬🇧'  ?></span><span class="nav-icon nav-arrow" style="visibility: visible;"></span>
-                <div class="language-switch">
+                    <?= $lan === 'dk' ? "🇩🇰" : '🇬🇧'  ?></span>
+                <!--    <span class="nav-icon nav-arrow" style="visibility: visible;"></span>
+                 <div class="language-switch">
                     <p>Change language:</p>
                     <form class="language-select">
                         <input type="radio" id="en" name="language" value="en" <?= $lan == "en" ? "checked" : '' ?>>
@@ -44,7 +49,7 @@ session_start();
                         <input type="radio" id="dk" name="language" value="dk" <?= $lan == "dk" ? "checked" : '' ?>>
                         <label for="dk">Dansk 🇩🇰</label>
                     </form>
-                </div>
+                </div> -->
             </div>
             <div class="nav-account">
                 <?php if (isset($_SESSION['user_first_name'])) {
@@ -53,16 +58,16 @@ session_start();
                 } else {
                     ?>
                     <p onclick="location.href='sign-up'">Hello, Sign in<?php
-                                                                    } ?>
-                    <h4>Account & Lists<span class="nav-icon nav-arrow" style="visibility: visible;"></span></h4>
-                    </p>
+                                                                    } ?> </p>
+                    <h4>Account<span class="nav-icon nav-arrow" style="visibility: visible;"></span></h4>
+
                     <?php if (isset($_SESSION['user_first_name'])) { ?>
                         <div class="dropdown-modal log-in-modal">
                             <div class="modal-arrow"></div>
                             <div class="login-content">
 
                                 <div class="your-account">
-                                    <h3>Your account</h3>
+                                    <h3>Your Account</h3>
                                     <p><a href="/amazon/profile">Account</a></p>
                                     <p><a href="/amazon/upload-item">Upload items</a></p>
                                     <p><a href="/amazon/items">Your items</a></p>
@@ -82,8 +87,38 @@ session_start();
                     <?php } ?>
 
             </div>
-            <div>Returns &amp; Order</div>
-            <div>Cart</div>
+            <div class="returns disabled">
+                <h4>
+                    Returns &amp; Order
+                </h4>
+            </div>
+            <div class="cart disabled">
+                <h4>
+                    Cart
+                </h4>
+            </div>
+            <div class="burgermenu-icon sidenav-trigger" data-target="mobile-menu">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+
         </div>
-        <div class="secondary-nav"></div>
+        <ul class="sidenav" id="mobile-menu">
+            <?php if (isset($_SESSION['user_first_name'])) { ?>
+
+                <li><a href="/amazon/profile">Account</a></li>
+                <li><a href="/amazon/upload-item">Upload items</a></li>
+                <li><a href="/amazon/items">Your items</a></li>
+                <li><a href="./bridges/logout">Sign out</a></li>
+
+            <?php } else { ?>
+                <li><a href="./login">Sign in</a></li>
+                <li><a href="./sign-up">Create account</a></li>
+
+
+            <?php }; ?>
+
+        </ul>
+        <div class="sidenav-overlay"></div>
     </nav>

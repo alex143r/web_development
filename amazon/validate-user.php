@@ -13,7 +13,7 @@ require_once('components/form-header.php');
 
     <article class="validate-email">
         <div class="form-logo-container">
-            <a href="./index.php"><img src="./img/logo_black.svg"></a>
+            <a href="./index"><img src="./img/logo_black.svg"></a>
         </div>
         <p class="validate-info-text">Verifying</p>
         <p class="redirect-info"></p>

@@ -1,6 +1,9 @@
 <?php
 $_title = 'acompany';
 require_once('components/header.php');
+if (!isset($_SESSION['user_first_name'])) {
+    header('Location: index');
+}
 ?>
 
 
@@ -70,7 +73,13 @@ require_once('components/header.php');
             });
             let response = await conn.json();
             console.log(response)
-            successMsg.innerHTML = response.info;
+            if (!conn.ok) {
+                successMsg.innerHTML = response.info;
+                successMsg.classList.add("error-msg");
+            } else {
+                successMsg.innerHTML = response.info;
+                successMsg.classList.remove("error-msg");
+            }
             // setTimeout(() => {
             //     window.location.href = "profile";
             // }, 2000);

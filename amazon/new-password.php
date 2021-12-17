@@ -13,7 +13,7 @@ require_once('components/form-header.php');
 
 <main class="log-in-main">
     <div class="form-logo-container">
-        <a href="./index.php"><img src="./img/logo_black.svg"></a>
+        <a href="./index"><img src="./img/logo_black.svg"></a>
     </div>
     <section class="log-in-container">
         <form onsubmit="return false" class="log-in-form hide">

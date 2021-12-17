@@ -42,17 +42,15 @@ try {
     }
 
     $newHashedPassword = password_hash($_POST['newPass'], PASSWORD_DEFAULT);
-    $newVerificationKey = bin2hex(random_bytes(16));
-    $q = $db->prepare('UPDATE users set user_password = :user_password, verified = :verified, verification_key = :verification_key WHERE user_id = :user_id');
+    $q = $db->prepare('UPDATE users set user_password = :user_password WHERE user_id = :user_id');
     $q->bindValue(':user_id', $_SESSION['user_id']);
     $q->bindValue(':user_password', $newHashedPassword);
-    // $q->bindValue(':verified', 0);
-    // $q->bindValue(':verification_key', $newVerificationKey);
+
     $q->execute();
     $row = $q->rowCount();
 
     _res(200, ['info' => 'Password updated.']);
 } catch (Exception $ex) {
-    _res(500, ['info' => 'System under maintenance']);
+    _res(500, ['info' => $ex]);
     die();
 }

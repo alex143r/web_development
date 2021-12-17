@@ -10,7 +10,7 @@ if (isset($_SESSION['user_first_name'])) {
 
 <main class="log-in-main">
     <div class="form-logo-container">
-        <a href="./index.php"><img src="./img/logo_black.svg"></a>
+        <a href="./index"><img src="./img/logo_black.svg"></a>
     </div>
     <section class="log-in-container">
         <form onsubmit="return false" class="log-in-form">
@@ -53,10 +53,7 @@ if (isset($_SESSION['user_first_name'])) {
 
                 errorInput.focus();
                 errorMsg.innerHTML = response.info;
-                errorInput.addEventListener("blur", function() {
-                    errorInput.style.outline = "none";
-                    errorMsg.innerHTML = "";
-                })
+
             } else {
                 location.href = "index"
             }

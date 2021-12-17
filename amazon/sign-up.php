@@ -8,7 +8,7 @@ if (isset($_SESSION['user_first_name'])) {
 
 <main class="sign-up-main">
     <div class="form-logo-container">
-        <a href="./index.php"><img src="./img/logo_black.svg"></a>
+        <a href="./index"><img src="./img/logo_black.svg"></a>
     </div>
     <section class="sign-up-container">
         <form onsubmit="return false" class="sign-up-form">
@@ -66,10 +66,7 @@ if (isset($_SESSION['user_first_name'])) {
 
                 errorInput.focus();
                 errorMsg.innerHTML = response.info;
-                errorInput.addEventListener("blur", function() {
-                    errorInput.style.outline = "none";
-                    errorMsg.innerHTML = "";
-                })
+
             } else {
                 document.querySelector(".sign-up-success-msg").innerHTML = "Account created! Check your email to verify your account.";
             }

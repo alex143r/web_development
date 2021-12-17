@@ -1,17 +1,15 @@
 <?php
 $_title = 'acompany edit item';
 require_once('components/header.php');
-
+if (!isset($_SESSION['user_first_name'])) {
+    header('Location: index');
+}
 $itemApi = "http://localhost:8888/amazon/apis/api-item.php";
 function file_get_contents_curl($url)
 {
     $ch = curl_init();
 
-    curl_setopt($ch, CURLOPT_AUTOREFERER, TRUE);
-    curl_setopt($ch, CURLOPT_HEADER, 0);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, 'item_id=' . $_GET['id'] . '&method=post&access_token=xyz'); // define what you want to post
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -105,6 +103,8 @@ $item = json_decode(file_get_contents_curl($itemApi), true);
         document.querySelector(".item-img-con").classList.remove("hide");
         document.querySelector(".item-img-con img").src = `./item_images/${response.item_image} `;
 
+        document.querySelectorAll(".error-msg").forEach((msg) => msg.innerHTML = '');
+
         updateBtn.classList.add("button-disabled");
         cancelBtn.classList.add("button-disabled");
         itemForm.addEventListener("input", enableBtns);
@@ -142,7 +142,7 @@ $item = json_decode(file_get_contents_curl($itemApi), true);
             }
 
         } catch (error) {
-            console.error(error.message);
+            console.error(error);
         }
 
     }
