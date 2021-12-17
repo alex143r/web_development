@@ -64,16 +64,6 @@ try {
 
     $db->beginTransaction();
 
-    $q = $db->prepare('SELECT * FROM users WHERE user_email = :user_email');
-    $q->bindValue(':user_email', $_POST['email']);
-    $q->execute();
-    $row = $q->rowCount();
-    if ($row) {
-        _res(400, ['info' => 'Email connected to this account already exists']);
-        $db->rollBack();
-        die();
-    }
-
     $q = $db->prepare('UPDATE users SET user_first_name = :user_first_name, user_last_name = :user_last_name, user_email = :user_email, user_phone_number = :user_phone_number WHERE user_id = :user_id');
     $q->bindValue(':user_id', $_SESSION['user_id']);
     $q->bindValue(':user_first_name', $_POST['firstName']);
